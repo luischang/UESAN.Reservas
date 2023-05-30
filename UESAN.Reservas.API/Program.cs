@@ -1,5 +1,8 @@
 using Microsoft.EntityFrameworkCore;
+using UESAN.Reservas.Core.Interfaces;
+using UESAN.Reservas.Core.Services;
 using UESAN.Reservas.Infrastructure.Data;
+using UESAN.Reservas.Infrastructure.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +14,8 @@ builder
     .Services
     .AddDbContext<ReservasContext>
     (options => options.UseSqlServer(cnx));
+builder.Services.AddTransient<IUsuarioRepository, UsuarioRepository>();
+builder.Services.AddTransient<IUsuarioService, UsuarioService>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
