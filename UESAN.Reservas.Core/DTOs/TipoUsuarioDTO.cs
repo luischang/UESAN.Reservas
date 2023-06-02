@@ -16,4 +16,8 @@ namespace UESAN.Reservas.Core.DTOs
     {
         public string? Descripcion { get; set; }
     }
+    public class pruebaTipoUsuarioDTO
+    {
+
+    }
 }
