@@ -16,6 +16,7 @@ builder
     (options => options.UseSqlServer(cnx));
 builder.Services.AddTransient<IUsuarioRepository, UsuarioRepository>();
 builder.Services.AddTransient<IUsuarioService, UsuarioService>();
+builder.Services.AddTransient<IHabitacionRepository, HabitacionRepository>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

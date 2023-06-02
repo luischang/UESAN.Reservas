@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UESAN.Reservas.Core.Entities;
+using UESAN.Reservas.Core.Interfaces;
 
 namespace UESAN.Reservas.Infrastructure.Repositories
 {
