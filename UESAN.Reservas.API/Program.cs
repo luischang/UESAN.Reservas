@@ -14,8 +14,14 @@ builder
     .Services
     .AddDbContext<ReservasContext>
     (options => options.UseSqlServer(cnx));
+
+
 builder.Services.AddTransient<IUsuarioRepository, UsuarioRepository>();
 builder.Services.AddTransient<IUsuarioService, UsuarioService>();
+builder.Services.AddTransient<IQuejasService, QuejasService>();
+builder.Services.AddTransient<IQuejasRepository, QuejasRepository>();
+builder.Services.AddTransient<ITipoUsuarioRepository, TipoUsuarioRepository>();
+builder.Services.AddTransient<ITipoUsuarioService, TipoUsuarioService>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

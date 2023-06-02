@@ -16,11 +16,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Data\" />
+    <ProjectReference Include="..\UESAN.Reservas.Core\UESAN.Reservas.Core.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\UESAN.Reservas.Core\UESAN.Reservas.Core.csproj" />
+    <Folder Include="Data\" />
   </ItemGroup>
 
 </Project>

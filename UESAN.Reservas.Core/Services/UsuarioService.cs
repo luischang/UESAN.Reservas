@@ -47,12 +47,11 @@ namespace UESAN.Reservas.Core.Services
             if (emaiResult)
                 return false;
             bool isAdminEmail = userDTO.Email.EndsWith("@admin.com");
-            int lastUserId = await _usuarioRepository.GetLastUserId();
-            int newUserId = lastUserId + 1;
+            //int lastUserId = await _usuarioRepository.GetLastUserId();
+            //int newUserId = lastUserId + 1;
 
             var user = new Usuario()
             {
-                IdUsuario = newUserId,
                 Email = userDTO.Email,
                 Contraseña = userDTO.Contraseña,
                 IdTipo = isAdminEmail ? 1 : 2,

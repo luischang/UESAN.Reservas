@@ -37,15 +37,12 @@ namespace UESAN.Reservas.Core.DTOs
 
     public class UsuarioAuthRequestDTO
         {
-        public int IdUsuario { get; set; }
         public string? Email { get; set; }
         public string? Contraseña { get; set; }
-        public int? IdTipo { get; set; }
         public string? Nombre { get; set; }
         public string? Apellido { get; set; }
         public string? Direccion { get; set; }
         public string? Telefono { get; set; }
-        public int? Puntos { get; set; }
     }
 
     public class UsuarioAuthenticationDTO
