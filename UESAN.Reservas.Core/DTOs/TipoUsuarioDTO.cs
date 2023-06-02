@@ -18,6 +18,6 @@ namespace UESAN.Reservas.Core.DTOs
     }
     public class pruebaTipoUsuarioDTO
     {
-
+        public int IdTipo { get; set; }
     }
 }
