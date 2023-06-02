@@ -1,9 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UESAN.Reservas.Core.Entities;
 using UESAN.Reservas.Core.Interfaces;
 using UESAN.Reservas.Infrastructure.Data;
@@ -20,7 +15,7 @@ namespace UESAN.Reservas.Infrastructure.Repositories
         }
 
      
-         public async Task<IEnumerable<Core.Entities.Habitacion>> GetHabitaciones()
+         public async Task<IEnumerable<Habitacion>> GetHabitaciones()
         {
             var habitaciones= await _context.Habitacion.ToListAsync();
             return habitaciones;
