@@ -22,6 +22,9 @@ builder.Services.AddTransient<IQuejasService, QuejasService>();
 builder.Services.AddTransient<IQuejasRepository, QuejasRepository>();
 builder.Services.AddTransient<ITipoUsuarioRepository, TipoUsuarioRepository>();
 builder.Services.AddTransient<ITipoUsuarioService, TipoUsuarioService>();
+builder.Services.AddTransient<ICalificacionService, CalificacionService>();
+builder.Services.AddTransient<IOfertaService, OfertaService>();
+builder.Services.AddTransient<IPagoService, PagoService>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

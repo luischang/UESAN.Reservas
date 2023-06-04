@@ -9,10 +9,10 @@ namespace UESAN.Reservas.Core.Interfaces
 {
     public interface IOfertaRepository
     {
-        Oferta GetById(int idOferta);
-        void Create(Oferta oferta);
-        void Update(Oferta oferta);
-        void Delete(Oferta oferta);
+        Ofertas GetById(int idOferta);
+        void Create(Ofertas oferta);
+        void Update(Ofertas oferta);
+        void Delete(Ofertas oferta);
 
     }
 }

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using UESAN.Reservas.Core.DTOs;
 using UESAN.Reservas.Core.Entities;
 using UESAN.Reservas.Core.Interfaces;
+
 namespace UESAN.Reservas.Core.Services
 {
     public class CalificacionService : ICalificacionService
@@ -29,9 +30,7 @@ namespace UESAN.Reservas.Core.Services
 
             calificacionRepository.Create(calificacion);
 
-
             return calificacionDTO;
         }
-
     }
 }

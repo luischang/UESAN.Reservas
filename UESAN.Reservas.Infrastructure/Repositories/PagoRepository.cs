@@ -3,38 +3,41 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UESAN.Reservas.Core.Entities;
+using UESAN.Reservas.Core.Interfaces;
+using UESAN.Reservas.Infrastructure.Data;
 
 namespace UESAN.Reservas.Infrastructure.Repositories
 {
     public class PagoRepository : IPagoRepository
     {
-        private readonly YourDbContext dbContext;
+        private readonly ReservasContext dbContext;
 
-        public PagoRepository(YourDbContext dbContext)
+        public PagoRepository(ReservasContext dbContext)
         {
             this.dbContext = dbContext;
         }
 
         public Pago GetById(int idPago)
         {
-            return dbContext.Pagos.FirstOrDefault(p => p.IdPago == idPago);
+            return dbContext.Pago.FirstOrDefault(p => p.IdPago == idPago);
         }
 
         public void Create(Pago pago)
         {
-            dbContext.Pagos.Add(pago);
+            dbContext.Pago.Add(pago);
             dbContext.SaveChanges();
         }
 
         public void Update(Pago pago)
         {
-            dbContext.Pagos.Update(pago);
+            dbContext.Pago.Update(pago);
             dbContext.SaveChanges();
         }
 
         public void Delete(Pago pago)
         {
-            dbContext.Pagos.Remove(pago);
+            dbContext.Pago.Remove(pago);
             dbContext.SaveChanges();
         }
 

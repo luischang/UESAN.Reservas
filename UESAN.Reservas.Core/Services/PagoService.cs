@@ -21,19 +21,39 @@ namespace UESAN.Reservas.Core.Services
         public PagoDTO ObtenerPago(int idPago)
         {
             var pago = pagoRepository.GetById(idPago);
-            return MapPagoToDTO(pago);
+            if (pago == null)
+                return null;
+
+            return new PagoDTO(pago.IdPago, pago.IdReserva.GetValueOrDefault(), pago.MetodoPago.GetValueOrDefault(), pago.MontoTotal.GetValueOrDefault(), pago.Estado.GetValueOrDefault());
         }
 
         public PagoDTO GuardarPago(PagoDTO pagoDTO)
         {
-            var pago = MapDTOToPago(pagoDTO);
+            var pago = new Pago
+            {
+                IdPago = pagoDTO.IdPago,
+                IdReserva = pagoDTO.IdReserva,
+                MetodoPago = pagoDTO.MetodoPago,
+                MontoTotal = pagoDTO.MontoTotal,
+                Estado = pagoDTO.Estado
+            };
+
             pagoRepository.Create(pago);
-            return MapPagoToDTO(pago);
+
+            return new PagoDTO(pago.IdPago, pago.IdReserva.GetValueOrDefault(), pago.MetodoPago.GetValueOrDefault(), pago.MontoTotal.GetValueOrDefault(), pago.Estado.GetValueOrDefault());
         }
 
         public void ActualizarPago(PagoDTO pagoDTO)
         {
-            var pago = MapDTOToPago(pagoDTO);
+            var pago = pagoRepository.GetById(pagoDTO.IdPago);
+            if (pago == null)
+                return;
+
+            pago.IdReserva = pagoDTO.IdReserva;
+            pago.MetodoPago = pagoDTO.MetodoPago;
+            pago.MontoTotal = pagoDTO.MontoTotal;
+            pago.Estado = pagoDTO.Estado;
+
             pagoRepository.Update(pago);
         }
 
@@ -42,30 +62,6 @@ namespace UESAN.Reservas.Core.Services
             var pago = pagoRepository.GetById(idPago);
             if (pago != null)
                 pagoRepository.Delete(pago);
-        }
-
-        private PagoDTO MapPagoToDTO(Pago pago)
-        {
-            return new PagoDTO
-            {
-                IdPago = pago.IdPago,
-                IdReserva = pago.IdReserva,
-                MetodoPago = pago.MetodoPago,
-                MontoTotal = pago.MontoTotal,
-                Estado = pago.Estado
-            };
-        }
-
-        private Pago MapDTOToPago(PagoDTO pagoDTO)
-        {
-            return new Pago
-            {
-                IdPago = pagoDTO.IdPago,
-                IdReserva = pagoDTO.IdReserva,
-                MetodoPago = pagoDTO.MetodoPago,
-                MontoTotal = pagoDTO.MontoTotal,
-                Estado = pagoDTO.Estado
-            };
         }
     }
 }

@@ -5,38 +5,39 @@ using System.Text;
 using System.Threading.Tasks;
 using UESAN.Reservas.Core.Entities;
 using UESAN.Reservas.Core.Interfaces;
+using UESAN.Reservas.Infrastructure.Data;
 
 namespace UESAN.Reservas.Infrastructure.Repositories
 {
     public class CalificacionRepository : ICalificacionRepository
     {
-        private readonly YourDbContext dbContext;
+        private readonly ReservasContext dbContext;
 
-        public CalificacionRepository(YourDbContext dbContext)
+        public CalificacionRepository(ReservasContext dbContext)
         {
             this.dbContext = dbContext;
         }
 
         public Calificacion GetById(int idCalificacion)
         {
-            return dbContext.Calificaciones.FirstOrDefault(c => c.IdCalificacion == idCalificacion);
+            return dbContext.Calificacion.FirstOrDefault(c => c.IdCalificacion == idCalificacion);
         }
 
         public void Create(Calificacion calificacion)
         {
-            dbContext.Calificaciones.Add(calificacion);
+            dbContext.Calificacion.Add(calificacion);
             dbContext.SaveChanges();
         }
 
         public void Update(Calificacion calificacion)
         {
-            dbContext.Calificaciones.Update(calificacion);
+            dbContext.Calificacion.Update(calificacion);
             dbContext.SaveChanges();
         }
 
         public void Delete(Calificacion calificacion)
         {
-            dbContext.Calificaciones.Remove(calificacion);
+            dbContext.Calificacion.Remove(calificacion);
             dbContext.SaveChanges();
         }
 

@@ -14,5 +14,13 @@ namespace UESAN.Reservas.Core.DTOs
         public decimal MontoTotal { get; set; }
         public int Estado { get; set; }
 
+        public PagoDTO(int idPago, int idReserva, int metodoPago, decimal montoTotal, int estado)
+        {
+            IdPago = idPago;
+            IdReserva = idReserva;
+            MetodoPago = metodoPago;
+            MontoTotal = montoTotal;
+            Estado = estado;
+        }
     }
 }

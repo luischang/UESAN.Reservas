@@ -1,4 +1,6 @@
-﻿namespace UESAN.Reservas.Core.Interfaces
+﻿using UESAN.Reservas.Core.Entities;
+
+namespace UESAN.Reservas.Core.Interfaces
 {
     public interface ICalificacionRepository
     {

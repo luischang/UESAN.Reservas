@@ -3,37 +3,39 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UESAN.Reservas.Core.Entities;
 using UESAN.Reservas.Core.Interfaces;
+using UESAN.Reservas.Infrastructure.Data;
 
 namespace UESAN.Reservas.Infrastructure.Repositories
 {
     public class OfertaRepository : IOfertaRepository
     {
-        private readonly YourDbContext dbContext;
+        private readonly ReservasContext dbContext;
 
-        public OfertaRepository(YourDbContext dbContext)
+        public OfertaRepository(ReservasContext dbContext)
         {
             this.dbContext = dbContext;
         }
 
-        public Oferta GetById(int idOferta)
+        public Ofertas GetById(int idOferta)
         {
-            return dbContext.Ofertas.FirstOrDefault(o => o.IdOferta == idOferta);
+            return dbContext.Ofertas.FirstOrDefault(o => o.IdOfertas == idOferta);
         }
 
-        public void Create(Oferta oferta)
+        public void Create(Ofertas oferta)
         {
             dbContext.Ofertas.Add(oferta);
             dbContext.SaveChanges();
         }
 
-        public void Update(Oferta oferta)
+        public void Update(Ofertas oferta)
         {
             dbContext.Ofertas.Update(oferta);
             dbContext.SaveChanges();
         }
 
-        public void Delete(Oferta oferta)
+        public void Delete(Ofertas oferta)
         {
             dbContext.Ofertas.Remove(oferta);
             dbContext.SaveChanges();

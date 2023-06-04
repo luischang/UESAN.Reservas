@@ -4,8 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UESAN.Reservas.Core.DTOs;
-using UESAN.Reservas.Core.Entities;
 using UESAN.Reservas.Core.Interfaces;
+using UESAN.Reservas.Core.Entities;
 
 namespace UESAN.Reservas.Core.Services
 {
@@ -21,19 +21,53 @@ namespace UESAN.Reservas.Core.Services
         public OfertaDTO ObtenerOferta(int idOferta)
         {
             var oferta = ofertaRepository.GetById(idOferta);
-            return MapOfertaToDTO(oferta);
+            if (oferta == null)
+                return null;
+
+            return new OfertaDTO(
+                oferta.IdOfertas,
+                oferta.Descripcion,
+                oferta.Descuento,
+                oferta.FechaInicio,
+                oferta.FechaFin,
+                oferta.Estado);
         }
 
         public OfertaDTO GuardarOferta(OfertaDTO ofertaDTO)
         {
-            var oferta = MapDTOToOferta(ofertaDTO);
+            var oferta = new Ofertas
+            {
+                IdOfertas = ofertaDTO.IdOfertas,
+                Descripcion = ofertaDTO.Descripcion,
+                Descuento = ofertaDTO.Descuento,
+                FechaInicio = ofertaDTO.FechaInicio,
+                FechaFin = ofertaDTO.FechaFin,
+                Estado = ofertaDTO.Estado
+            };
+
             ofertaRepository.Create(oferta);
-            return MapOfertaToDTO(oferta);
+
+            return new OfertaDTO(
+                oferta.IdOfertas,
+                oferta.Descripcion,
+                oferta.Descuento,
+                oferta.FechaInicio,
+                oferta.FechaFin,
+                oferta.Estado);
         }
 
         public void ActualizarOferta(OfertaDTO ofertaDTO)
         {
-            var oferta = MapDTOToOferta(ofertaDTO);
+            var oferta = new Ofertas
+            {
+                IdOfertas = ofertaDTO.IdOfertas,
+                Descripcion = ofertaDTO.Descripcion,
+                Descuento = ofertaDTO.Descuento,
+                FechaInicio = ofertaDTO.FechaInicio,
+                FechaFin = ofertaDTO.FechaFin,
+                Estado = ofertaDTO.Estado
+            };
+
             ofertaRepository.Update(oferta);
         }
 
@@ -42,33 +76,6 @@ namespace UESAN.Reservas.Core.Services
             var oferta = ofertaRepository.GetById(idOferta);
             if (oferta != null)
                 ofertaRepository.Delete(oferta);
-        }
-
-
-        private OfertaDTO MapOfertaToDTO(Oferta oferta)
-        {
-            return new OfertaDTO
-            {
-                IdOferta = oferta.IdOferta,
-                Descripcion = oferta.Descripcion,
-                Descuento = oferta.Descuento,
-                FechaInicio = oferta.FechaInicio,
-                FechaFin = oferta.FechaFin,
-                Estado = oferta.Estado
-            };
-        }
-
-        private Oferta MapDTOToOferta(OfertaDTO ofertaDTO)
-        {
-            return new Oferta
-            {
-                IdOferta = ofertaDTO.IdOferta,
-                Descripcion = ofertaDTO.Descripcion,
-                Descuento = ofertaDTO.Descuento,
-                FechaInicio = ofertaDTO.FechaInicio,
-                FechaFin = ofertaDTO.FechaFin,
-                Estado = ofertaDTO.Estado
-            };
         }
     }
 }
