@@ -16,5 +16,10 @@ namespace UESAN.Reservas.Core.DTOs
     {
         public string Descripcion { get; set; }
     }
+    public class TipoHabitacionDescriptionDTO
+    {
+        public int Id_TipoHabi { get; set; }
+        public string Descripcion { get; set; }
+    }
 
 }

@@ -12,17 +12,52 @@ namespace UESAN.Reservas.API.Controllers
     public class HabitacionController : ControllerBase
 
     {
-        private readonly IHabitacionRepository _habitacionRepository;
+        private readonly IHabitacionService _habitacionService;
 
-        public HabitacionController(IHabitacionRepository habitacionRepository)
+        public HabitacionController(IHabitacionService habitacionService)
         {
-            _habitacionRepository=habitacionRepository;
+            _habitacionService=habitacionService;
         }
-       // [HttpGet]
-       /* public async Task<IActionResult> GetAll()
+        [HttpPost("CreateHabitacion")]
+        public async Task<IActionResult> Insert(HabitacionInsertDTO habitacionInsertDTO)
         {
-            //var habitaciones= await _habitacionRepository.GetHabitaciones();
-            return Ok(habitaciones);
-        }*/
+            var result = await _habitacionService.Insert(habitacionInsertDTO);
+            if (!result)
+                return BadRequest(result);
+            return Ok(result);
+        }
+
+        [HttpGet("GetAll")]
+        public async Task<ActionResult> GetAll()
+        {
+            var habitacion = await _habitacionService.GetAll();
+            return Ok(habitacion);
+        }
+
+        [HttpGet("{idHabitacion}")]
+        public async Task<IActionResult> GetById(int id)
+        {
+            var result = await _habitacionService.GetById(id);
+            if (result == null)
+                return NotFound();
+            return Ok(result);
+        }
+
+        [HttpPut("{idUpdate}")]
+        public async Task<IActionResult> Update(int id, HabitacionUpdateDTO habitacionUpdateDTO)
+        {
+            var result = await _habitacionService.Update(habitacionUpdateDTO);
+            return Ok(result);
+        }
+
+        [HttpDelete]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var result = await _habitacionService.Delete(id);
+            if (!result)
+                return NotFound();
+            return Ok(result);
+        }
+
     }
 }

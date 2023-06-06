@@ -25,12 +25,11 @@ namespace UESAN.Reservas.Core.DTOs
 
     public class HabitacionInsertDTO
     {
-        public String Descripcion { get; set; }
-        public int Capacidad { get; set; }
-        public bool Estado { get; set; }
-        public int Id_TipoHabi { get; set; }
-        public decimal Precio { get; set; }
-        public int Cant_Camas { get; set; }
+        public String? Descripcion { get; set; }
+        public int? Capacidad { get; set; }
+        public decimal? Precio { get; set; }
+        public int? Cant_Camas { get; set; }
+        public TipoHabitacionDescriptionDTO TipoHabitacion { get; set; }
     }
     public class HabitacionUpdateDTO
     {
@@ -43,15 +42,16 @@ namespace UESAN.Reservas.Core.DTOs
         public int Cant_Camas { get; set; }
     }
 
-    public class HabitacionTipoDTO
+    public class HabitacionTipoHabitacionDTO
     {
         public int Id_Habitacion { get; set; }
-        public String Descripcion { get; set; }
-        public int Capacidad { get; set; }
-        public bool Estado { get; set; }
-        public decimal Precio { get; set; }
-        public int Cant_Camas { get; set; }
-        public TipoHabitacionDTO TipoHabitacion { get; set; }
+        public String? Descripcion { get; set; }
+        public int? Capacidad { get; set; }
+        public bool? Estado { get; set; }
+        public decimal? Precio { get; set; }
+        public int? Cant_Camas { get; set; }
+        public TipoHabitacionDescriptionDTO TipoHabitacion { get; set; }
     }
+    
 
 }

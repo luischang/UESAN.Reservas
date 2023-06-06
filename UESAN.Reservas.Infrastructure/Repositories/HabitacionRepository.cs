@@ -14,25 +14,25 @@ namespace UESAN.Reservas.Infrastructure.Repositories
             _context = context;
         }
 
-     
-         public async Task<IEnumerable<Habitacion>> GetHabitaciones()
+
+        public async Task<IEnumerable<Habitacion>> GetHabitaciones()
         {
-            var habitaciones= await _context.Habitacion.ToListAsync();
+            var habitaciones = await _context.Habitacion.Where(x => x.Estado == true).Include(z => z.IdTipoHabiNavigation).ToListAsync();
             return habitaciones;
         }
-         
+
 
         public async Task<Habitacion> GetHabitacionById(int id)
         {
-            var habitacion =await _context.Habitacion.Where(x => x.IdHabitacion == id).FirstOrDefaultAsync();
-            if(habitacion == null)
+            var habitacion = await _context.Habitacion.Where(x => x.IdHabitacion == id).Include(z => z.IdTipoHabiNavigation).FirstOrDefaultAsync();
+            if (habitacion == null)
             {
                 throw new Exception("Habitación no encontrada");
             }
             return habitacion;
 
         }
-         
+
 
         public async Task<bool> Insert(Habitacion habitacion)
         {
@@ -54,7 +54,7 @@ namespace UESAN.Reservas.Infrastructure.Repositories
             var habitacion = await _context.Habitacion.FindAsync(id);
             if (habitacion == null)
                 return false;
-            _context.Habitacion.Remove(habitacion);
+            habitacion.Estado = false;
             var countRows = await _context.SaveChangesAsync();
             return countRows >= 0;
 
