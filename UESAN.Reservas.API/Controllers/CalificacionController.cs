@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-
+using UESAN.Reservas.Core.DTOs;
+using UESAN.Reservas.Core.Interfaces;
 namespace UESAN.Reservas.API.Controllers
 {
     [Route("api/[controller]")]
@@ -13,17 +14,7 @@ namespace UESAN.Reservas.API.Controllers
             this.calificacionService = calificacionService;
         }
 
-        [HttpGet("{id}")]
-        public IActionResult GetCalificacion(int id)
-        {
-            var calificacion = calificacionService.GetCalificacionById(id);
-
-            if (calificacion == null)
-                return NotFound();
-
-            return Ok(calificacion);
-        }
-
+      
         [HttpPost]
         public IActionResult GuardarCalificacion([FromBody] CalificacionDTO calificacionDTO)
         {
@@ -31,33 +22,7 @@ namespace UESAN.Reservas.API.Controllers
             return CreatedAtAction(nameof(GetCalificacion), new { id = nuevaCalificacion.IdCalificacion }, nuevaCalificacion);
         }
 
-        [HttpPut("{id}")]
-        public IActionResult ActualizarCalificacion(int id, [FromBody] CalificacionDTO calificacionDTO)
-        {
-            if (id != calificacionDTO.IdCalificacion)
-                return BadRequest();
+        
 
-            var calificacionExistente = calificacionService.GetCalificacionById(id);
-
-            if (calificacionExistente == null)
-                return NotFound();
-
-            calificacionService.ActualizarCalificacion(calificacionDTO);
-
-            return NoContent();
-        }
-
-        [HttpDelete("{id}")]
-        public IActionResult EliminarCalificacion(int id)
-        {
-            var calificacionExistente = calificacionService.GetCalificacionById(id);
-
-            if (calificacionExistente == null)
-                return NotFound();
-
-            calificacionService.EliminarCalificacion(id);
-
-            return NoContent();
-        }
-    }
+        
 }

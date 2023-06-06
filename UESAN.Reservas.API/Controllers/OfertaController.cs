@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using UESAN.Reservas.Core.DTOs;
+using UESAN.Reservas.Core.Interfaces;
 
 namespace UESAN.Reservas.API.Controllers
 {
@@ -31,16 +33,6 @@ namespace UESAN.Reservas.API.Controllers
             return CreatedAtAction(nameof(ObtenerOferta), new { id = nuevaOferta.IdOferta }, nuevaOferta);
         }
 
-        [HttpPut("{id}")]
-        public IActionResult ActualizarOferta(int id, [FromBody] OfertaDTO ofertaDTO)
-        {
-            if (id != ofertaDTO.IdOferta)
-                return BadRequest();
-
-            ofertaService.ActualizarOferta(ofertaDTO);
-
-            return NoContent();
-        }
 
         [HttpDelete("{id}")]
         public IActionResult EliminarOferta(int id)
