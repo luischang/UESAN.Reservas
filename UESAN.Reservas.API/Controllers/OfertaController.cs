@@ -26,19 +26,17 @@ namespace UESAN.Reservas.API.Controllers
             return Ok(oferta);
         }
 
-<<<<<<< HEAD
-=======
         [HttpPost]
         public IActionResult GuardarOferta([FromBody] OfertaDTO ofertaDTO)
         {
             var nuevaOferta = ofertaService.GuardarOferta(ofertaDTO);
-            return CreatedAtAction(nameof(ObtenerOferta), new { id = nuevaOferta.IdOfertas }, nuevaOferta);
+            return CreatedAtAction(nameof(ObtenerOferta), new { id = nuevaOferta.IdOferta }, nuevaOferta);
         }
 
         [HttpPut("{id}")]
         public IActionResult ActualizarOferta(int id, [FromBody] OfertaDTO ofertaDTO)
         {
-            if (id != ofertaDTO.IdOfertas)
+            if (id != ofertaDTO.IdOferta)
                 return BadRequest();
 
             ofertaService.ActualizarOferta(ofertaDTO);
@@ -46,7 +44,6 @@ namespace UESAN.Reservas.API.Controllers
             return NoContent();
         }
 
->>>>>>> Ultimos Cambios
         [HttpDelete("{id}")]
         public IActionResult EliminarOferta(int id)
         {

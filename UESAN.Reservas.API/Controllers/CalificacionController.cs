@@ -1,10 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using UESAN.Reservas.Core.DTOs;
 using UESAN.Reservas.Core.Interfaces;
-<<<<<<< HEAD
-=======
 
->>>>>>> Ultimos Cambios
 namespace UESAN.Reservas.API.Controllers
 {
     [Route("api/[controller]")]
@@ -18,10 +15,6 @@ namespace UESAN.Reservas.API.Controllers
             this.calificacionService = calificacionService;
         }
 
-<<<<<<< HEAD
-
-
-=======
         [HttpGet("{id}")]
         public IActionResult GetCalificacion(int id)
         {
@@ -34,12 +27,6 @@ namespace UESAN.Reservas.API.Controllers
             return Ok(/*calificacion*/);
         }
 
-        [HttpPost]
-        public IActionResult GuardarCalificacion([FromBody] CalificacionDTO calificacionDTO)
-        {
-            var nuevaCalificacion = calificacionService.GuardarCalificacion(calificacionDTO);
-            return CreatedAtAction(nameof(GetCalificacion), new { id = nuevaCalificacion.IdCalificacion }, nuevaCalificacion);
-        }
 
         [HttpPut("{id}")]
         public IActionResult ActualizarCalificacion(int id, [FromBody] CalificacionDTO calificacionDTO)
@@ -72,6 +59,5 @@ namespace UESAN.Reservas.API.Controllers
 
             return NoContent();
         }
->>>>>>> Ultimos Cambios
     }
 }
