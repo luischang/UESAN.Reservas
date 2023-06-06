@@ -152,7 +152,7 @@ public partial class ReservasContext : DbContext
             entity.Property(e => e.FechaFin)
                 .HasColumnType("date")
                 .HasColumnName("Fecha_Fin");
-            entity.Property(e => e.FechaIni)
+            entity.Property(e => e.FechaInicio)
                 .HasColumnType("date")
                 .HasColumnName("Fecha_Ini");
         });
