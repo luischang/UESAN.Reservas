@@ -20,7 +20,7 @@ namespace UESAN.Reservas.Infrastructure.Repositories
 
         public Calificacion GetById(int idCalificacion)
         {
-            return dbContext.Calificacion.FirstOrDefault(c => c.IdCalificacion == idCalificacion);
+            return dbContext.Calificacion.Where(c => c.IdCalificacion == idCalificacion).FirstOrDefault();
         }
 
         public void Create(Calificacion calificacion)

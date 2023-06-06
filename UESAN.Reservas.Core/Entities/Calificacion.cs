@@ -7,11 +7,11 @@ public partial class Calificacion
 {
     public int IdCalificacion { get; set; }
 
-    public int? IdReserva { get; set; }
+    public int IdReserva { get; set; }
 
-    public int? NumEstrellas { get; set; }
+    public int NumEstrellas { get; set; }
 
-    public string? Recomendacion { get; set; }
+    public string Recomendacion { get; set; }
 
-    public virtual ReservasOrder? IdReservaNavigation { get; set; }
+    public virtual ReservasOrder IdReservaNavigation { get; set; }
 }

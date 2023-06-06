@@ -10,6 +10,7 @@ namespace UESAN.Reservas.Core.Interfaces
     public interface ICalificacionService
     {
         CalificacionDTO GuardarCalificacion(CalificacionDTO calificacionDTO);
-
-    }
+        CalificacionDTO GetCalificacionById(int id);
+        CalificacionRecomendacionDTO Update(CalificacionRecomendacionDTO calificacionRecomendacionDTO)
+    };
 }

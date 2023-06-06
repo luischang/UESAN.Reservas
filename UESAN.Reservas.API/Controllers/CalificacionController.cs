@@ -18,14 +18,13 @@ namespace UESAN.Reservas.API.Controllers
         [HttpGet("{id}")]
         public IActionResult GetCalificacion(int id)
         {
-            //Todo: Pendiente GetCalifiacionById en el Service
-            //var calificacion = calificacionService.GetCalificacionById(id);
+            var calificacion = calificacionService.GetCalificacionById(id);
+            if (calificacion == null)
+                return NotFound();
 
-            //if (calificacion == null)
-            //    return NotFound();
-
-            return Ok(/*calificacion*/);
+            return Ok(calificacion);
         }
+
 
 
         [HttpPut("{id}")]
@@ -34,13 +33,13 @@ namespace UESAN.Reservas.API.Controllers
             if (id != calificacionDTO.IdCalificacion)
                 return BadRequest();
             //Todo: Pendiente GetCalifiacionById en el Service
-            //var calificacionExistente = calificacionService.GetCalificacionById(id);
+            var calificacionExistente = calificacionService.GetCalificacionById(id);
 
-            //if (calificacionExistente == null)
-            //    return NotFound();
+            if (calificacionExistente == null)
+            return NotFound();
 
             ////Todo: Pendiente ActualizarCalificacion en el service
-            //calificacionService.ActualizarCalificacion(calificacionDTO);
+            calificacionService.Update;
 
             return NoContent();
         }

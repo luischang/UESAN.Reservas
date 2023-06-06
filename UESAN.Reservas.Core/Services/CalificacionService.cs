@@ -32,5 +32,22 @@ namespace UESAN.Reservas.Core.Services
 
             return calificacionDTO;
         }
+
+        public CalificacionDTO GetCalificacionById (int id)
+        {
+       
+            {
+                var calificacion = calificacionRepository.GetById(id);
+                var calificacionDTO = new CalificacionDTO();
+                calificacionDTO.IdCalificacion = calificacion.IdCalificacion;
+                calificacionDTO.IdReserva = calificacion.IdReserva;
+                calificacionDTO.NumEstrellas = calificacion.NumEstrellas;
+                calificacionDTO.Recomendacion = calificacion.Recomendacion;
+                return calificacionDTO;
+            };
+
+            
+
+        }
     }
 }
