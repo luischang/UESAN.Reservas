@@ -30,13 +30,13 @@ namespace UESAN.Reservas.API.Controllers
         public IActionResult GuardarOferta([FromBody] OfertaDTO ofertaDTO)
         {
             var nuevaOferta = ofertaService.GuardarOferta(ofertaDTO);
-            return CreatedAtAction(nameof(ObtenerOferta), new { id = nuevaOferta.IdOferta }, nuevaOferta);
+            return CreatedAtAction(nameof(ObtenerOferta), new { id = nuevaOferta.IdOfertas }, nuevaOferta);
         }
 
         [HttpPut("{id}")]
         public IActionResult ActualizarOferta(int id, [FromBody] OfertaDTO ofertaDTO)
         {
-            if (id != ofertaDTO.IdOferta)
+            if (id != ofertaDTO.IdOfertas)
                 return BadRequest();
 
             ofertaService.ActualizarOferta(ofertaDTO);
