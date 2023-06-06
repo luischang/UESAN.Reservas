@@ -1,5 +1,5 @@
 ﻿CREATE TABLE [dbo].[Quejas] (
-    [Id_Quejas]   INT           NOT NULL,
+    [Id_Quejas]   INT           NOT NULL IDENTITY,
     [Fecha]       DATE          NULL,
     [Id_Usuario]  INT           NULL,
     [Descripcion] VARCHAR (100) NULL,

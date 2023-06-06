@@ -1,5 +1,5 @@
 ﻿CREATE TABLE [dbo].[Detalle_Servicios] (
-    [Id_Reserva]  INT             NOT NULL,
+    [Id_Reserva]  INT             NOT NULL IDENTITY,
     [Id_Servicio] INT             NULL,
     [SubTotal]    DECIMAL (10, 2) NULL,
     PRIMARY KEY CLUSTERED ([Id_Reserva] ASC),

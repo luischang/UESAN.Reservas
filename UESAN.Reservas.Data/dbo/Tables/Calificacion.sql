@@ -1,5 +1,5 @@
 ﻿CREATE TABLE [dbo].[Calificacion] (
-    [Id_Calificacion] INT           NOT NULL,
+    [Id_Calificacion] INT           NOT NULL IDENTITY,
     [Id_Reserva]      INT           NULL,
     [Num_Estrellas]   INT           NULL,
     [Recomendacion]   VARCHAR (100) NULL,

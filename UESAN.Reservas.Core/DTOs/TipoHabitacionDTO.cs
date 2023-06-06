@@ -12,4 +12,9 @@ namespace UESAN.Reservas.Core.DTOs
         public string Descripcion { get; set; }
     }
 
+    public class TipoHabitacionInsertDTO
+    {
+        public string Descripcion { get; set; }
+    }
+
 }

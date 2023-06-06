@@ -1,5 +1,5 @@
 ﻿CREATE TABLE [dbo].[Pago] (
-    [Id_Pago]    INT             NOT NULL,
+    [Id_Pago]    INT             NOT NULL IDENTITY,
     [Id_Reserva] INT             NULL,
     [MetodoPago] INT             NULL,
     [MontoTotal] DECIMAL (10, 2) NULL,
