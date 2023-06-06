@@ -26,14 +26,6 @@ namespace UESAN.Reservas.API.Controllers
             return Ok(oferta);
         }
 
-        [HttpPost]
-        public IActionResult GuardarOferta([FromBody] OfertaDTO ofertaDTO)
-        {
-            var nuevaOferta = ofertaService.GuardarOferta(ofertaDTO);
-            return CreatedAtAction(nameof(ObtenerOferta), new { id = nuevaOferta.IdOferta }, nuevaOferta);
-        }
-
-
         [HttpDelete("{id}")]
         public IActionResult EliminarOferta(int id)
         {

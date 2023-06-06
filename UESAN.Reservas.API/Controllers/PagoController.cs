@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using UESAN.Reservas.Core.DTOs;
+using UESAN.Reservas.Core.Interfaces;
 
 namespace UESAN.Reservas.API.Controllers
 {

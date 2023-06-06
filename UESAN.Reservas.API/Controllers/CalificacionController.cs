@@ -13,15 +13,6 @@ namespace UESAN.Reservas.API.Controllers
         {
             this.calificacionService = calificacionService;
         }
-
-      
-        [HttpPost]
-        public IActionResult GuardarCalificacion([FromBody] CalificacionDTO calificacionDTO)
-        {
-            var nuevaCalificacion = calificacionService.GuardarCalificacion(calificacionDTO);
-            return CreatedAtAction(nameof(GetCalificacion), new { id = nuevaCalificacion.IdCalificacion }, nuevaCalificacion);
-        }
-
         
 
         
