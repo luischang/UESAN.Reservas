@@ -9,7 +9,7 @@ using UESAN.Reservas.Core.Entities;
 
 namespace UESAN.Reservas.Core.Services
 {
-    public class OfertaService : IOfertaService
+    public class OfertaService 
     {
         private readonly IOfertaRepository ofertaRepository;
 
@@ -18,7 +18,7 @@ namespace UESAN.Reservas.Core.Services
             this.ofertaRepository = ofertaRepository;
         }
 
-        public OfertaDTO ObtenerOferta(int idOferta)
+       /* public OfertaDTO ObtenerOferta(int idOferta)
         {
             var oferta = ofertaRepository.GetById(idOferta);
             if (oferta == null)
@@ -28,12 +28,12 @@ namespace UESAN.Reservas.Core.Services
                 oferta.IdOfertas,
                 oferta.Descripcion,
                 oferta.Descuento,
-                oferta.FechaInicio,
+                oferta.FechaIni,
                 oferta.FechaFin,
                 oferta.Estado);
-        }
+        }*/
 
-        public OfertaDTO GuardarOferta(OfertaDTO ofertaDTO)
+       /* public OfertaDTO GuardarOferta(OfertaDTO ofertaDTO)
         {
             var oferta = new Ofertas
             {
@@ -76,6 +76,6 @@ namespace UESAN.Reservas.Core.Services
             var oferta = ofertaRepository.GetById(idOferta);
             if (oferta != null)
                 ofertaRepository.Delete(oferta);
-        }
+        }*/
     }
 }

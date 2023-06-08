@@ -81,13 +81,26 @@ namespace UESAN.Reservas.Core.Services
 
             if (th != null)
             {
+                var precioh = 0;
+                if (tipoHabitacion.Descripcion == "Simple")
+                {
+                    precioh = 15;
+                }
+                else if (tipoHabitacion.Descripcion == "Doble")
+                {
+                    precioh = 25;
+                }
+                else if (tipoHabitacion.Descripcion == "Matrimonial")
+                {
+                    precioh = 45;
+                }
                 var habitacion = new Habitacion()
                 {
                     IdTipoHabi = th.IdTipoHabi,
                     Descripcion = habitacionInsertDTO.Descripcion,
                     Capacidad = habitacionInsertDTO.Capacidad,
                     Estado = true,
-                    Precio = habitacionInsertDTO.Precio,
+                    Precio = precioh,
                     CantCamas = habitacionInsertDTO.Cant_Camas,
 
 
@@ -99,32 +112,81 @@ namespace UESAN.Reservas.Core.Services
         }
 
         public async Task<bool> Update(HabitacionUpdateDTO habitacionUpdateDTO)
+
         {
-            var habitacion = new Habitacion()
+            var precioh = 0;
+            if (habitacionUpdateDTO.Id_TipoHabi== 1)
             {
-                IdHabitacion = habitacionUpdateDTO.Id_Habitacion,
+                precioh = 15;
+            }
+            else if (habitacionUpdateDTO.Id_TipoHabi == 2)
+            {
+                precioh = 25;
+            }
+            else if (habitacionUpdateDTO.Id_TipoHabi == 3)
+            {
+                precioh = 45;
+            }
+            var habitacion = new Habitacion()
+
+            {
+                IdHabitacion =habitacionUpdateDTO.Id_Habitacion,
                 IdTipoHabi = habitacionUpdateDTO.Id_TipoHabi,
                 Capacidad = habitacionUpdateDTO.Capacidad,
                 Estado = habitacionUpdateDTO.Estado,
                 CantCamas = habitacionUpdateDTO.Cant_Camas,
-                Precio = habitacionUpdateDTO.Precio,
+                Precio = precioh,
                 Descripcion = habitacionUpdateDTO.Descripcion,
-            };
+
+              
+                
+                };
+                
             return await _habitacionRepository.Update(habitacion);
-        }
+          
+            //if (update)
+            //{
+            //    var habitacionCreada = await _habitacionRepository.GetHabitacionById(habitacionUpdateDTO.Id_Habitacion);
+            //    if (habitacionCreada.IdTipoHabi == 1)
+            //    {
+            //        precioh = 15;
+            //    }
+            //    else if (habitacionCreada.IdTipoHabi == 2)
+            //    {
+            //        precioh = 25;
+            //    }
+            //    else if (habitacionCreada.IdTipoHabi == 3)
+            //    {
+            //        precioh = 45;
+            //    }
+            //    var nuevaHabitacion = new Habitacion()
+            //    {
+            //        IdHabitacion = habitacionCreada.IdHabitacion,
+            //        IdTipoHabi = habitacionCreada.IdTipoHabi,
+            //        Capacidad = habitacionCreada.Capacidad,
+            //        Estado = habitacionCreada.Estado,
+            //        CantCamas = habitacionCreada.CantCamas,
+            //        Precio = precioh,
+            //        Descripcion = habitacionCreada.Descripcion,
+            //    };
+            //    return await _habitacionRepository.Update(nuevaHabitacion);
+            //}
+            //return false;
+            
+    }
 
-        public async Task<bool> Delete(int id)
+    public async Task<bool> Delete(int id)
+    {
+
+        var idHabitacion = await _habitacionRepository.GetHabitacionById(id);
+        if (idHabitacion != null)
         {
-
-            var idHabitacion = await _habitacionRepository.GetHabitacionById(id);
-            if (idHabitacion != null)
-            {
-                return await _habitacionRepository.Delete(idHabitacion.IdHabitacion);
-            }
-            return false;
-
+            return await _habitacionRepository.Delete(idHabitacion.IdHabitacion);
         }
-
+        return false;
 
     }
+
+
+}
 }

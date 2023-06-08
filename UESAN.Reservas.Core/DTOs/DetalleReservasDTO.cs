@@ -6,7 +6,19 @@ using System.Threading.Tasks;
 
 namespace UESAN.Reservas.Core.DTOs
 {
-    internal class DetalleReservasDTO
+    public class DetalleReservasDTO
     {
+        public int IdReserva { get; set; }
+
+        public int? IdHabitacion { get; set; }
+
+        public decimal? Subtotal { get; set; }
+    }
+  
+    public class DetalleReservaInsertDTO {
+
+        public HabitacionDetalleReservaInsertDTO HabitacionDetalle { get; set; }
+
+
     }
 }

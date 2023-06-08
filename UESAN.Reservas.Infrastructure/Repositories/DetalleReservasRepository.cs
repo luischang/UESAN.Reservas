@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,44 +19,26 @@ namespace UESAN.Reservas.Infrastructure.Repositories
             _context = context;
         }
 
-        public IEnumerable<Core.Entities.DetalleReservas> GetDetalleReservas()
+        public async Task<IEnumerable<DetalleReservas>> GetDetalleReservas()
         {
-            var detallereservas = _context.DetalleReservas.ToList();
-            return detallereservas;
-        }
-
-        //asincrono
-        /*
-         public async Task<IEnumerable<Core.Entities.DetalleReservas>> GetDetalleReservas()
-        {
-            var detallereservas= await _context.DetalleReservas.ToListAsync();
-            return detallereservas;
-        }
-         */
-
-        public DetalleReservas GetDetalleReservasById(int id)
-        {
-            var detallereservas = _context.DetalleReservas.Where(x => x.IdReserva == id).FirstOrDefault();
-            if (detallereservas == null)
-            {
-                throw new Exception("No se encuentra el detalle de dicha reserva");
-            }
-            return detallereservas;
+            return await _context.DetalleReservas
+               .Where(x => x.IdReserva > 0)
+               .Include(z => z.IdReservaNavigation)
+               .Include(i => i.IdHabitacionNavigation)
+               .ToListAsync();
 
         }
-        //asincrono
-        /*
-          public async Task<DetalleReservas> GetDetalleReservasById(int id)
+
+
+        public async Task<DetalleReservas> GetDetalleReservasById(int id)
         {
-            var detallereservas =await _context.DetalleReservas.Where(x => x.IdReserva == id).FirstOrDefaultAsync();
-            if(detallereservas == null)
-            {
-                throw new Exception("No se encuentra el detalle de dicha reserva");
-            }
-            return detallereservas;
+            return await _context.DetalleReservas.Where(x => x.IdReserva == id)
+                .Include(z => z.IdReservaNavigation)
+                .Include(i => i.IdHabitacionNavigation)
+                .FirstOrDefaultAsync();
 
         }
-         */
+
 
         public async Task<bool> Insert(DetalleReservas detallereservas)
         {
@@ -65,22 +48,17 @@ namespace UESAN.Reservas.Infrastructure.Repositories
 
         }
 
-        public async Task<bool> Update(DetalleReservas detallereservas)
-        {
-            _context.DetalleReservas.Update(detallereservas);
-            var countRows = await _context.SaveChangesAsync();
-            return countRows > 0;
-        }
 
-        public async Task<bool> Delete(int id)
-        {
-            var detallereservas = await _context.DetalleReservas.FindAsync(id);
-            if (detallereservas == null)
-                return false;
-            _context.DetalleReservas.Remove(detallereservas);
-            var countRows = await _context.SaveChangesAsync();
-            return countRows >= 0;
 
-        }
+        /* public async Task<bool> Delete(int id)
+         {
+             var detallereservas = await _context.DetalleReservas.FindAsync(id);
+             if (detallereservas == null)
+                 return false;
+             _context.DetalleReservas.Remove(detallereservas);
+             var countRows = await _context.SaveChangesAsync();
+             return countRows >= 0;
+
+         }*/
     }
 }

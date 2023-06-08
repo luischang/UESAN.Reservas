@@ -19,5 +19,7 @@ public partial class Habitacion
 
     public int? CantCamas { get; set; }
 
+    public virtual ICollection<DetalleReservas> DetalleReservas { get; set; } = new List<DetalleReservas>();
+
     public virtual TipoHabitacion? IdTipoHabiNavigation { get; set; }
 }

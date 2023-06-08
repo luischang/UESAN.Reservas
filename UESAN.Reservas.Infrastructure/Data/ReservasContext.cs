@@ -44,13 +44,13 @@ public partial class ReservasContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Server=MESIASADAN\\BI;Database=Reservas;TrustServerCertificate=True;Integrated Security=true");
+        => optionsBuilder.UseSqlServer("Server=DESKTOP-QDKJAD4;DataBase=Reservas;TrustServerCertificate=True;Integrated Security=true");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Calificacion>(entity =>
         {
-            entity.HasKey(e => e.IdCalificacion).HasName("PK__Califica__6F6E6A407B9930C7");
+            entity.HasKey(e => e.IdCalificacion).HasName("PK__Califica__6F6E6A401B350125");
 
             entity.Property(e => e.IdCalificacion).HasColumnName("Id_Calificacion");
             entity.Property(e => e.IdReserva).HasColumnName("Id_Reserva");
@@ -66,34 +66,34 @@ public partial class ReservasContext : DbContext
 
         modelBuilder.Entity<DetalleReservas>(entity =>
         {
-            entity
-                .HasNoKey()
-                .ToTable("Detalle_Reservas");
+            entity.HasKey(e => e.IdReserva);
 
-            entity.Property(e => e.IdHabitacion).HasColumnName("Id_Habitacion");
+            entity.ToTable("Detalle_Reservas");
+
             entity.Property(e => e.IdReserva)
-                .ValueGeneratedOnAdd()
+                .ValueGeneratedNever()
                 .HasColumnName("Id_Reserva");
+            entity.Property(e => e.IdHabitacion).HasColumnName("Id_Habitacion");
             entity.Property(e => e.Subtotal).HasColumnType("decimal(10, 2)");
 
-            entity.HasOne(d => d.IdHabitacionNavigation).WithMany()
+            entity.HasOne(d => d.IdHabitacionNavigation).WithMany(p => p.DetalleReservas)
                 .HasForeignKey(d => d.IdHabitacion)
                 .HasConstraintName("FK_Detalle_Reservas.Id_Habitacion");
 
-            entity.HasOne(d => d.IdReservaNavigation).WithMany()
-                .HasForeignKey(d => d.IdReserva)
+            entity.HasOne(d => d.IdReservaNavigation).WithOne(p => p.DetalleReservas)
+                .HasForeignKey<DetalleReservas>(d => d.IdReserva)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Detalle_Reservas.Id_Reserva");
         });
 
         modelBuilder.Entity<DetalleServicios>(entity =>
         {
-            entity.HasKey(e => e.IdReserva).HasName("PK__Detalle___9E953BE1B4902E11");
+            entity.HasKey(e => e.IdReserva).HasName("PK__tmp_ms_x__9E953BE1B58A815C");
 
             entity.ToTable("Detalle_Servicios");
 
             entity.Property(e => e.IdReserva)
-                .ValueGeneratedOnAdd()
+                .ValueGeneratedNever()
                 .HasColumnName("Id_Reserva");
             entity.Property(e => e.IdServicio).HasColumnName("Id_Servicio");
             entity.Property(e => e.SubTotal).HasColumnType("decimal(10, 2)");
@@ -110,7 +110,7 @@ public partial class ReservasContext : DbContext
 
         modelBuilder.Entity<Habitacion>(entity =>
         {
-            entity.HasKey(e => e.IdHabitacion).HasName("PK__Habitaci__6B8A72E2EA3358CC");
+            entity.HasKey(e => e.IdHabitacion).HasName("PK__Habitaci__6B8A72E20260C55B");
 
             entity.Property(e => e.IdHabitacion).HasColumnName("Id_Habitacion");
             entity.Property(e => e.CantCamas).HasColumnName("Cant_Camas");
@@ -127,7 +127,7 @@ public partial class ReservasContext : DbContext
 
         modelBuilder.Entity<IdEstadoReserva>(entity =>
         {
-            entity.HasKey(e => e.IdEstadoRes).HasName("PK__Id_Estad__9C2AF71D7F5CB3E3");
+            entity.HasKey(e => e.IdEstadoRes).HasName("PK__Id_Estad__9C2AF71D6D07D4FB");
 
             entity.ToTable("Id_Estado_Reserva");
 
@@ -142,7 +142,7 @@ public partial class ReservasContext : DbContext
 
         modelBuilder.Entity<Ofertas>(entity =>
         {
-            entity.HasKey(e => e.IdOfertas).HasName("PK__Ofertas__C41D869B2777DF66");
+            entity.HasKey(e => e.IdOfertas).HasName("PK__Ofertas__C41D869BF1933F8B");
 
             entity.Property(e => e.IdOfertas).HasColumnName("Id_Ofertas");
             entity.Property(e => e.Descripcion)
@@ -152,14 +152,14 @@ public partial class ReservasContext : DbContext
             entity.Property(e => e.FechaFin)
                 .HasColumnType("date")
                 .HasColumnName("Fecha_Fin");
-            entity.Property(e => e.FechaInicio)
+            entity.Property(e => e.FechaIni)
                 .HasColumnType("date")
                 .HasColumnName("Fecha_Ini");
         });
 
         modelBuilder.Entity<Pago>(entity =>
         {
-            entity.HasKey(e => e.IdPago).HasName("PK__Pago__3E79AD9A7EFF2030");
+            entity.HasKey(e => e.IdPago).HasName("PK__Pago__3E79AD9A86301404");
 
             entity.Property(e => e.IdPago).HasColumnName("Id_Pago");
             entity.Property(e => e.IdReserva).HasColumnName("Id_Reserva");
@@ -172,7 +172,7 @@ public partial class ReservasContext : DbContext
 
         modelBuilder.Entity<Quejas>(entity =>
         {
-            entity.HasKey(e => e.IdQuejas).HasName("PK__Quejas__F05DA0CDDD7E88B2");
+            entity.HasKey(e => e.IdQuejas).HasName("PK__Quejas__F05DA0CD02BF5E42");
 
             entity.Property(e => e.IdQuejas).HasColumnName("Id_Quejas");
             entity.Property(e => e.Descripcion)
@@ -188,7 +188,7 @@ public partial class ReservasContext : DbContext
 
         modelBuilder.Entity<ReservasOrder>(entity =>
         {
-            entity.HasKey(e => e.IdReserva).HasName("PK__Reservas__9E953BE1C499C5B9");
+            entity.HasKey(e => e.IdReserva).HasName("PK__Reservas__9E953BE1A2574FD0");
 
             entity.Property(e => e.IdReserva).HasColumnName("Id_Reserva");
             entity.Property(e => e.CantPersonas).HasColumnName("Cant_Personas");
@@ -217,7 +217,7 @@ public partial class ReservasContext : DbContext
 
         modelBuilder.Entity<Servicio>(entity =>
         {
-            entity.HasKey(e => e.IdServicio).HasName("PK__Servicio__5B1345F01BCC815C");
+            entity.HasKey(e => e.IdServicio).HasName("PK__Servicio__5B1345F08E556BC5");
 
             entity.Property(e => e.IdServicio).HasColumnName("Id_Servicio");
             entity.Property(e => e.Descripcion)
@@ -228,7 +228,7 @@ public partial class ReservasContext : DbContext
 
         modelBuilder.Entity<TipoHabitacion>(entity =>
         {
-            entity.HasKey(e => e.IdTipoHabi).HasName("PK__Tipo_Hab__D1B601E88B7327C3");
+            entity.HasKey(e => e.IdTipoHabi).HasName("PK__Tipo_Hab__D1B601E8B94A5D6D");
 
             entity.ToTable("Tipo_Habitacion");
 
@@ -240,7 +240,7 @@ public partial class ReservasContext : DbContext
 
         modelBuilder.Entity<TipoUsuario>(entity =>
         {
-            entity.HasKey(e => e.IdTipo).HasName("PK__Tipo_Usu__06416392C39E0141");
+            entity.HasKey(e => e.IdTipo).HasName("PK__Tipo_Usu__06416392B3611D77");
 
             entity.ToTable("Tipo_Usuario");
 
@@ -252,7 +252,7 @@ public partial class ReservasContext : DbContext
 
         modelBuilder.Entity<Usuario>(entity =>
         {
-            entity.HasKey(e => e.IdUsuario).HasName("PK__Usuario__63C76BE248974B53");
+            entity.HasKey(e => e.IdUsuario).HasName("PK__Usuario__63C76BE2C21F3299");
 
             entity.Property(e => e.IdUsuario).HasColumnName("Id_Usuario");
             entity.Property(e => e.Apellido)

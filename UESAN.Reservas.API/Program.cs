@@ -24,10 +24,23 @@ builder.Services.AddTransient<ITipoUsuarioRepository, TipoUsuarioRepository>();
 builder.Services.AddTransient<ITipoUsuarioService, TipoUsuarioService>();
 builder.Services.AddTransient<ICalificacionService, CalificacionService>();
 builder.Services.AddTransient<ICalificacionRepository, CalificacionRepository >();
-builder.Services.AddTransient<IOfertaService, OfertaService>();
-builder.Services.AddTransient<IOfertaRepository, OfertaRepository>();
+//builder.Services.AddTransient<IOfertaService, OfertaService>(); to do
+//builder.Services.AddTransient<IOfertaRepository, OfertaRepository>(); to do
 builder.Services.AddTransient<IPagoService, PagoService>();
 builder.Services.AddTransient<IPagoRepository, PagoRepository>();
+builder.Services.AddTransient<ITipoHabitacionRepository, TipoHabitacionRepository>();
+builder.Services.AddTransient<ITipoHabitacionService, TipoHabitacionService>();
+builder.Services.AddTransient<IHabitacionRepository, HabitacionRepository>();
+builder.Services.AddTransient<IHabitacionService, HabitacionService>();
+builder.Services.AddTransient<IReservasOrderRepository, ReservasOrderRepository>();
+builder.Services.AddTransient<IReservasOrderService, ReservasOrderService>();   
+builder.Services.AddTransient<IDetalleServiciosRepository, DetalleServiciosRepository>();
+builder.Services.AddTransient<IDetalleServiciosRepository, DetalleServiciosRepository>();
+builder.Services.AddTransient<IDetalleReservasRepository, DetalleReservasRepository>();
+builder.Services.AddTransient<IDetalleReservaService, DetalleReservaService>();
+
+
+
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

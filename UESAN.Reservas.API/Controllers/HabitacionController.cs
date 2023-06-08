@@ -28,7 +28,7 @@ namespace UESAN.Reservas.API.Controllers
         }
 
         [HttpGet("GetAll")]
-        public async Task<ActionResult> GetAll()
+        public async Task<IActionResult> GetAll()
         {
             var habitacion = await _habitacionService.GetAll();
             return Ok(habitacion);
@@ -44,7 +44,7 @@ namespace UESAN.Reservas.API.Controllers
         }
 
         [HttpPut("{idUpdate}")]
-        public async Task<IActionResult> Update(int id, HabitacionUpdateDTO habitacionUpdateDTO)
+        public async Task<IActionResult> Update(HabitacionUpdateDTO habitacionUpdateDTO)
         {
             var result = await _habitacionService.Update(habitacionUpdateDTO);
             return Ok(result);

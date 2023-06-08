@@ -27,7 +27,7 @@ namespace UESAN.Reservas.Core.DTOs
     {
         public String? Descripcion { get; set; }
         public int? Capacidad { get; set; }
-        public decimal? Precio { get; set; }
+        //public decimal? Precio { get; set; }
         public int? Cant_Camas { get; set; }
         public TipoHabitacionDescriptionDTO TipoHabitacion { get; set; }
     }
@@ -38,7 +38,7 @@ namespace UESAN.Reservas.Core.DTOs
         public int Capacidad { get; set; }
         public bool Estado { get; set; }
         public int Id_TipoHabi { get; set; }
-        public decimal Precio { get; set; }
+        //public decimal Precio { get; set; }
         public int Cant_Camas { get; set; }
     }
 
@@ -52,6 +52,21 @@ namespace UESAN.Reservas.Core.DTOs
         public int? Cant_Camas { get; set; }
         public TipoHabitacionDescriptionDTO TipoHabitacion { get; set; }
     }
+
+    /*public class HabitacionDetalleReservaInsertDTO
+    {
+        public int Id_Habitacion { get; set; }
+        public decimal? Precio { get; set; }
+
+    }*/
     
+    public class HabitacionDetalleReservaInsertDTO
+    {
+        public int Id_Habitacion { get; set; }
+        public String? Descripcion { get; set; }
+        public decimal? Precio { get; set; }
+        public TipoHabitacionDescriptionDTO TipoHabitacion { get; set; }
+    }
+   
 
 }

@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using UESAN.Reservas.Core.DTOs;
 using UESAN.Reservas.Core.Entities;
 using UESAN.Reservas.Core.Interfaces;
-using UESAN.Reservas.Infrastructure.Repositories;
 
 namespace UESAN.Reservas.Core.Services
 {

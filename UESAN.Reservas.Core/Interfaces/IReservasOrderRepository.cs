@@ -1,6 +1,6 @@
 ﻿using UESAN.Reservas.Core.Entities;
 
-namespace UESAN.Reservas.Infrastructure.Repositories
+namespace UESAN.Reservas.Core.Interfaces
 {
     public interface IReservasOrderRepository
     {

@@ -6,17 +6,19 @@ using System.Threading.Tasks;
 using UESAN.Reservas.Core.DTOs;
 using UESAN.Reservas.Core.Entities;
 using UESAN.Reservas.Core.Interfaces;
-using UESAN.Reservas.Infrastructure.Repositories;
+
 
 namespace UESAN.Reservas.Core.Services
 {
     public class ReservasOrderService : IReservasOrderService
     {
         private readonly IReservasOrderRepository _reservasOrderRepository;
+        
 
         public ReservasOrderService(IReservasOrderRepository reservasOrderRepository)
         {
             _reservasOrderRepository = reservasOrderRepository;
+            
         }
 
         public async Task<IEnumerable<ReservasOrderDescriptionDTO>> GetAll()
@@ -62,6 +64,10 @@ namespace UESAN.Reservas.Core.Services
             reservasOrder.IdOfertas = reservasOrderInsertDTO.IdOfertas;
 
             var result = await _reservasOrderRepository.Insert(reservasOrder);
+            //creamos un detalle reserva
+            var reserva = reservasOrder.IdReserva;
+            
+           
             return result;
         }
 
