@@ -20,7 +20,7 @@ namespace UESAN.Reservas.API.Controllers
             return Ok(tipoHabitacion);
         }
 
-        [HttpGet("{idTipoHabitacion}")]
+        [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
             var result = await _tipoHabitacionService.GetById(id);

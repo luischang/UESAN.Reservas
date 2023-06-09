@@ -9,7 +9,7 @@ namespace UESAN.Reservas.Core.DTOs
     public class HabitacionDTO
     {
         public int Id_Habitacion { get; set; }
-        public String Descripcion { get; set; }
+        public String? Descripcion { get; set; }
         public int Capacidad { get; set; }
         public bool Estado { get; set; }
         public int Id_TipoHabi { get; set; }
@@ -19,7 +19,7 @@ namespace UESAN.Reservas.Core.DTOs
     public class HabitacionDescriptionDTO
     {
         public int Id_Habitacion { get; set; }
-        public string Descripcion { get; set; }
+        public String? Descripcion { get; set; }
 
     }
 
@@ -34,7 +34,7 @@ namespace UESAN.Reservas.Core.DTOs
     public class HabitacionUpdateDTO
     {
         public int Id_Habitacion { get; set; }
-        public String Descripcion { get; set; }
+        public String? Descripcion { get; set; }
         public int Capacidad { get; set; }
         public bool Estado { get; set; }
         public int Id_TipoHabi { get; set; }

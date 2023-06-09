@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using UESAN.Reservas.Core.Interfaces;
 using UESAN.Reservas.Infrastructure;
 using UESAN.Reservas.Core.DTOs;
-
+using Microsoft.AspNetCore.Http.Metadata;
 
 namespace UESAN.Reservas.API.Controllers
 {
@@ -30,17 +30,17 @@ namespace UESAN.Reservas.API.Controllers
         [HttpGet("GetAll")]
         public async Task<IActionResult> GetAll()
         {
-            var habitacion = await _habitacionService.GetAll();
-            return Ok(habitacion);
+            var habitaciones = await _habitacionService.GetAll();
+            return Ok(habitaciones);
         }
 
-        [HttpGet("{idHabitacion}")]
+        [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
-            var result = await _habitacionService.GetById(id);
-            if (result == null)
+            var habitacion = await  _habitacionService.GetById(id);
+            if (habitacion == null)
                 return NotFound();
-            return Ok(result);
+            return Ok(habitacion);
         }
 
         [HttpPut("{idUpdate}")]

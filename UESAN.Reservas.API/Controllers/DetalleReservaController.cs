@@ -21,7 +21,7 @@ namespace UESAN.Reservas.API.Controllers
             return Ok(empresa);
         }
 
-        [HttpGet("{idEmpresa}")]
+        [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
             var result = await _service.GetById(id);

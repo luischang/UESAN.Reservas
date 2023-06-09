@@ -5,8 +5,10 @@ namespace UESAN.Reservas.Core.Interfaces
     public interface IHabitacionRepository
     {
         Task<bool> Delete(int id);
-        Task<Habitacion> GetHabitacionById(int id);
+        //Task<Habitacion> GetHabitacionById(int id);
         Task<IEnumerable<Habitacion>> GetHabitaciones();
+        Task<Habitacion> GetHabitacionById(int id);
+        
         Task<bool> Insert(Habitacion habitacion);
         Task<bool> Update(Habitacion habitacion);
     }
