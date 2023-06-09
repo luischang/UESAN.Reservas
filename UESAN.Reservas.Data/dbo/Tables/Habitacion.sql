@@ -1,5 +1,5 @@
 ﻿CREATE TABLE [dbo].[Habitacion] (
-    [Id_Habitacion] INT             NOT NULL IDENTITY,
+    [Id_Habitacion] INT             IDENTITY (1, 1) NOT NULL,
     [Descripcion]   VARCHAR (100)   NULL,
     [Capacidad]     INT             NULL,
     [Estado]        BIT             NULL,

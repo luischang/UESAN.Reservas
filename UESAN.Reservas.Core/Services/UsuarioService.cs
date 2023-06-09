@@ -35,6 +35,7 @@ namespace UESAN.Reservas.Core.Services
                 Apellido = user.Apellido,
                 Direccion = user.Direccion,
                 Telefono = user.Telefono,
+                Estado = user.Estado,
                 Puntos = user.Puntos,
             };
             return userDTO;

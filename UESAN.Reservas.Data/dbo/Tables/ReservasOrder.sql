@@ -1,5 +1,5 @@
 ﻿CREATE TABLE [dbo].[ReservasOrder] (
-    [Id_Reserva]    INT  NOT NULL IDENTITY,
+    [Id_Reserva]    INT  IDENTITY (1, 1) NOT NULL,
     [Id_Usuario]    INT  NULL,
     [Fecha_Ini]     DATE NULL,
     [Fecha_Fin]     DATE NULL,

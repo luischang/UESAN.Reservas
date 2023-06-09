@@ -23,7 +23,6 @@ namespace UESAN.Reservas.Infrastructure.Repositories
         {
             return await _dbContext
                          .Servicio
-                         .Where(x => x.Estado == true)
                          .ToListAsync();
         }
 
