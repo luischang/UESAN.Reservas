@@ -9,7 +9,11 @@ namespace UESAN.Reservas.Core.Interfaces
 {
     public interface ICalificacionService
     {
-        CalificacionDTO GuardarCalificacion(CalificacionDTO calificacionDTO);
+        Task<bool> Delete(int id);
+        Task<IEnumerable<CalificacionDTO>> GetAll();
+        Task<CalificacionDTO> GetById(int id);
+        Task<bool> Insert(CalificacionInsertDTO calificacionInsertDTO);
+        Task<bool> Update(CalificacionRecomendacionDTO calificacionRecomendacionDTO);
 
     }
 }

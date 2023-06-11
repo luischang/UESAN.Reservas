@@ -11,57 +11,124 @@ namespace UESAN.Reservas.Core.Services
 {
     public class PagoService : IPagoService
     {
-        private readonly IPagoRepository pagoRepository;
+        private readonly IPagoRepository _pagoRepository;
+        private readonly IDetalleServiciosRepository _repo;
+        private readonly IDetalleReservasRepository _reservasRepository;
+        private readonly IOfertasRepository _oferta;
+        private readonly IReservasOrderRepository _reservas;
 
-        public PagoService(IPagoRepository pagoRepository)
+        public PagoService(IPagoRepository pagoRepository, IDetalleServiciosRepository detalleServiciosRepository, IDetalleReservasRepository detalleReservasRepository, IOfertasRepository oferta, IReservasOrderRepository reservasOrderRepository)
         {
-            this.pagoRepository = pagoRepository;
+            _pagoRepository = pagoRepository;
+            _repo = detalleServiciosRepository;
+            _reservasRepository = detalleReservasRepository;
+            _oferta = oferta;
+            _reservas = reservasOrderRepository;
+
         }
 
-        public PagoDTO ObtenerPago(int idPago)
+        public async Task<IEnumerable<PagoDescripcionDTO>> GetAll()
         {
-            var pago = pagoRepository.GetById(idPago);
-            if (pago == null)
-                return null;
+            var pagos = await _pagoRepository.GetAll();
+            var pagosDTO = new List<PagoDescripcionDTO>();
 
-            return new PagoDTO(pago.IdPago, pago.IdReserva.GetValueOrDefault(), pago.MetodoPago.GetValueOrDefault(), pago.MontoTotal.GetValueOrDefault(), pago.Estado.GetValueOrDefault());
-        }
-
-        public PagoDTO GuardarPago(PagoDTO pagoDTO)
-        {
-            var pago = new Pago
+            foreach (var pago in pagos)
             {
-                IdPago = pagoDTO.IdPago,
-                IdReserva = pagoDTO.IdReserva,
-                MetodoPago = pagoDTO.MetodoPago,
-                MontoTotal = pagoDTO.MontoTotal,
-                Estado = pagoDTO.Estado
+                var pagoDTO = new PagoDescripcionDTO()
+                {
+                    IdPago = pago.IdPago,
+                    IdReserva = pago.IdReserva,
+                    Estado = pago.Estado,
+                    MetodoPago = pago.MetodoPago,
+                    MontoTotal = pago.MontoTotal
+
+                };
+
+                pagosDTO.Add(pagoDTO);
+            }
+            return pagosDTO;
+        }
+
+        public async Task<PagoDTO> GetById(int id)
+        {
+
+            var pago = await _pagoRepository.GetById(id);
+            if (pago == null) { return null; }
+            var pagoDTO = new PagoDTO()
+            {
+                IdPago = pago.IdPago,
+                IdReserva = pago.IdReserva,
+                Estado = pago.Estado,
+                MetodoPago = pago.MetodoPago,
+                MontoTotal = pago.MontoTotal
             };
 
-            pagoRepository.Create(pago);
-
-            return new PagoDTO(pago.IdPago, pago.IdReserva.GetValueOrDefault(), pago.MetodoPago.GetValueOrDefault(), pago.MontoTotal.GetValueOrDefault(), pago.Estado.GetValueOrDefault());
+            return pagoDTO;
         }
 
-        public void ActualizarPago(PagoDTO pagoDTO)
+        public async Task<bool> Insert(PagoInsertDTO pagoInsertDTO)
         {
-            var pago = pagoRepository.GetById(pagoDTO.IdPago);
+            var acum1 = 0.0;
+            var acum2 = 0.0;
+            var descuento = 0.0;
+            //Primero traemos todos lo detalles servicios que estan registrados con la reserva creada
+            var detallesS = await _repo.GetById(pagoInsertDTO.IdReserva);
+            //traemos lo detalles reservas con el idReserva
+            var detallesR = await _reservasRepository.GetId(pagoInsertDTO.IdReserva);
+            //Traemos la oferta la que esta expuesta la reserva
+            var reser = await _reservas.GetById(pagoInsertDTO.IdReserva);
+
+            var oferta = await _oferta.GetByIdOferta(reser.IdOfertas);
+            //asignamos decuento
+            descuento = (double)oferta.Descuento;
+            foreach (var det in detallesS)//aqui traemos los detalles y extraemos sus precios
+            {
+                if (det.SubTotal != null)
+                {
+                    acum1 = acum1 + (int)det.SubTotal;
+                }
+            }
+            foreach (var deta in detallesR)
+            {
+                if (deta.Subtotal != null)
+                {
+                    acum2 = acum2 + (int)deta.Subtotal;
+                }
+            }
+            var pagoTotal = (acum1 + acum2) - descuento;
+            var pago = new Pago()
+            {
+                IdReserva = pagoInsertDTO.IdReserva,
+                Estado = pagoInsertDTO.Estado,
+                MetodoPago = 1,
+                MontoTotal = (decimal)pagoTotal,
+            };
+            var result = await _pagoRepository.Insert(pago);
+            return result;
+        }
+
+
+        /*public async Task<bool> Update(PagoDescripcionDTO pagoDescripcionDTO)
+        {
+            var pago = await _pagoRepository.GetById(pagoDescripcionDTO.IdPago);
             if (pago == null)
-                return;
+                return false;
+            pago.Descripcion = pagoDescripcionDTO.Descripcion;
 
-            pago.IdReserva = pagoDTO.IdReserva;
-            pago.MetodoPago = pagoDTO.MetodoPago;
-            pago.MontoTotal = pagoDTO.MontoTotal;
-            pago.Estado = pagoDTO.Estado;
+            var result = await _pagoRepository.Update(pago);
+            return result;
+        }*/
 
-            pagoRepository.Update(pago);
-        }
-
-        public void EliminarPago(int idPago)
+        public async Task<bool> Delete(int id)
         {
-            var pago = pagoRepository.GetById(idPago);
-            if (pago != null)
-                pagoRepository.Delete(pago);
+            var pago = await _pagoRepository.GetById(id);
+            if (pago == null)
+                return false;
+
+            var result = await _pagoRepository.Delete(id);
+            return result;
         }
+
+
     }
 }

@@ -27,7 +27,16 @@ namespace UESAN.Reservas.Infrastructure.Repositories
                          .ToListAsync();
         }
 
-        public async Task<DetalleServicios> GetById(int id)
+        public async Task<IEnumerable<DetalleServicios>> GetById(int id)
+        {
+            return await _dbContext
+                        .DetalleServicios
+                        .Where(x => x.IdReserva == id)
+                        .ToListAsync();
+        }
+
+
+        public async Task<DetalleServicios> GetByIdupdate(int id)
         {
             return await _dbContext
                         .DetalleServicios
@@ -35,6 +44,18 @@ namespace UESAN.Reservas.Infrastructure.Repositories
                         .FirstOrDefaultAsync();
         }
 
+
+
+
+
+
+
+
+
+        public async Task<DetalleServicios> GetByIdOferta(int id)
+        {
+            return await _dbContext.DetalleServicios.Where(x => x.IdServicio == id).FirstOrDefaultAsync();
+        }
         public async Task<bool> Insert(DetalleServicios detalleServicios)
         {
             await _dbContext.DetalleServicios.AddAsync(detalleServicios);

@@ -8,57 +8,57 @@ namespace UESAN.Reservas.API.Controllers
     [Route("api/v1/[controller]")]
     [ApiController]
 
-    public class PagoController : ControllerBase
+    public class OfertasController : ControllerBase
     {
-        private readonly IPagoService _pagoService;
+        private readonly IOfertasService _ofertasService;
 
-        public PagoController(IPagoService pagoService)
+        public OfertasController(IOfertasService ofertasService)
         {
-            _pagoService = pagoService;
+            _ofertasService = ofertasService;
         }
 
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            var pagos = await _pagoService.GetAll();
-            return Ok(pagos);
+            var ofertas = await _ofertasService.GetAll();
+            return Ok(ofertas);
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
-            var pago = await _pagoService.GetById(id);
-            if (pago == null)
+            var ofertas = await _ofertasService.GetById(id);
+            if (ofertas == null)
                 return NotFound();
-            return Ok(pago);
+
+            return Ok(ofertas);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Insert(PagoInsertDTO pago)
+        public async Task<IActionResult> Insert(OfertasInsertDTO ofertas)
         {
-            var result = await _pagoService.Insert(pago);
+            var result = await _ofertasService.Insert(ofertas);
             if (!result)
                 return BadRequest();
             return NoContent();
         }
 
-        /*[HttpPut("{id}")]
-        public async Task<IActionResult> Update(int id, PagoDescripcionDTO pago)
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Update(int id, OfertasDescripcionDTO ofertas)
         {
-            if (id != pago.IdPago)
+            if (id != ofertas.IdOfertas)
                 return NotFound();
 
-            var result = await _pagoService.Update(pago);
+            var result = await _ofertasService.Update(ofertas);
             if (!result)
                 return BadRequest();
 
             return NoContent();
-        }*/
-
+        }
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
-            var result = await _pagoService.Delete(id);
+            var result = await _ofertasService.Delete(id);
             if (!result)
                 return BadRequest();
 

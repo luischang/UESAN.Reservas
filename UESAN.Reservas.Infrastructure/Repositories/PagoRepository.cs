@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,35 +12,52 @@ namespace UESAN.Reservas.Infrastructure.Repositories
 {
     public class PagoRepository : IPagoRepository
     {
-        private readonly ReservasContext dbContext;
+        private readonly ReservasContext _dbContext;
 
         public PagoRepository(ReservasContext dbContext)
         {
-            this.dbContext = dbContext;
+            _dbContext = dbContext;
         }
 
-        public Pago GetById(int idPago)
+        public async Task<IEnumerable<Pago>> GetAll()
         {
-            return dbContext.Pago.FirstOrDefault(p => p.IdPago == idPago);
+            return await _dbContext
+                         .Pago
+                         .ToListAsync();
         }
 
-        public void Create(Pago pago)
+        public async Task<Pago> GetById(int id)
         {
-            dbContext.Pago.Add(pago);
-            dbContext.SaveChanges();
+            return await _dbContext
+                        .Pago
+                        .Where(x => x.IdPago == id)
+                        .FirstOrDefaultAsync();
         }
 
-        public void Update(Pago pago)
+        public async Task<bool> Insert(Pago pago)
         {
-            dbContext.Pago.Update(pago);
-            dbContext.SaveChanges();
+            await _dbContext.Pago.AddAsync(pago);
+            int rows = await _dbContext.SaveChangesAsync();
+            return rows > 0;
         }
-
-        public void Delete(Pago pago)
+        public async Task<bool> Update(Pago pago)
         {
-            dbContext.Pago.Remove(pago);
-            dbContext.SaveChanges();
+            _dbContext.Pago.Update(pago);
+            int rows = await _dbContext.SaveChangesAsync();
+            return rows > 0;
         }
+        public async Task<bool> Delete(int id)
+        {
+            var findPago = await _dbContext
+                                .Pago
+                                .Where(x => x.IdPago == id)
+                                .FirstOrDefaultAsync();
+            if (findPago == null)
+                return false;
 
+            findPago.Estado = 0;
+            int rows = await _dbContext.SaveChangesAsync();
+            return rows > 0;
+        }
     }
 }

@@ -11,8 +11,21 @@ namespace UESAN.Reservas.Core.DTOs
         public int IdCalificacion { get; set; }
         public int IdReserva { get; set; }
         public int NumEstrellas { get; set; }
-        public string Recomendacion { get; set; }
+        public string? Recomendacion { get; set; }
 
 
+    }
+
+    public class CalificacionRecomendacionDTO
+    {
+        public int IdCalificacion { get; set; }
+        public string? Recomendacion { get; set; }
+    }
+
+    public class CalificacionInsertDTO
+    {
+        public int IdReserva { get; set; }
+        public string? Recomendacion { get; set; }
+        public int NumEstrellas { get; set; }
     }
 }

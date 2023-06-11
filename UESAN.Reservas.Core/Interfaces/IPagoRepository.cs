@@ -9,10 +9,11 @@ namespace UESAN.Reservas.Core.Interfaces
 {
     public interface IPagoRepository
     {
-        Pago GetById(int idPago);
-        void Create(Pago pago);
-        void Update(Pago pago);
-        void Delete(Pago pago);
+        Task<bool> Delete(int id);
+        Task<IEnumerable<Pago>> GetAll();
+        Task<Pago> GetById(int id);
+        Task<bool> Insert(Pago pago);
+        Task<bool> Update(Pago pago);
 
     }
 }

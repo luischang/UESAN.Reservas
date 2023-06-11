@@ -50,7 +50,7 @@ namespace UESAN.Reservas.Core.DTOs
 
         public int? CantPersonas { get; set; }
 
-        public int? IdOfertas { get; set; }
+        public int IdOfertas { get; set; }
 
         //public List<DetalleReservasDTO> ListDetalleReservasDTO { get; set; }
         public List<DetalleServiciosDTO> ListDetalleServiciosDTO { get; set; }

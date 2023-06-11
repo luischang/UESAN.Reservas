@@ -34,14 +34,21 @@ namespace UESAN.Reservas.Core.Services
             }
             return detallesServiciosDTO;
         }
-        public async Task<DetalleServiciosDTO> GetById(int id)
+        public async Task<IEnumerable<DetalleServiciosDescriptionDTO>> GetById(int id)
         {
-            var detalleServicios = await _detalleServiciosRepository.GetById(id);
-            var detalleServiciosDTO = new DetalleServiciosDTO();
-            detalleServiciosDTO.IdReserva = detalleServicios.IdReserva;
-            detalleServiciosDTO.IdServicio = detalleServicios.IdServicio;
-            detalleServiciosDTO.SubTotal = detalleServicios.SubTotal;
-            return detalleServiciosDTO;
+            var detallesServicios = await _detalleServiciosRepository.GetById(id);
+            var detallesServiciosDTO = new List<DetalleServiciosDescriptionDTO>();
+
+            foreach (var detalleServicios in detallesServicios)
+            {
+                var detalleServiciosDTO = new DetalleServiciosDescriptionDTO();
+                detalleServiciosDTO.IdReserva = detalleServicios.IdReserva;
+                detalleServiciosDTO.IdServicio = detalleServicios.IdServicio;
+                detalleServiciosDTO.SubTotal = detalleServicios.SubTotal;
+
+                detallesServiciosDTO.Add(detalleServiciosDTO);
+            }
+            return detallesServiciosDTO;
         }
 
         public async Task<bool> Insert(DetalleServiciosInsertDTO detalleServiciosInsertDTO)
@@ -55,7 +62,7 @@ namespace UESAN.Reservas.Core.Services
 
         public async Task<bool> Update(DetalleServiciosDescriptionDTO detalleServiciosDescriptionDTO)
         {
-            var detalleServicios = await _detalleServiciosRepository.GetById(detalleServiciosDescriptionDTO.IdReserva);
+            var detalleServicios = await _detalleServiciosRepository.GetByIdupdate(detalleServiciosDescriptionDTO.IdReserva);
             if (detalleServicios == null)
                 return false;
             //detalleServicios.IdEstadoRes = detalleServiciosDescriptionDTO.IdEstadoRes;

@@ -60,5 +60,16 @@ namespace UESAN.Reservas.Infrastructure.Repositories
              return countRows >= 0;
 
          }*/
+
+
+
+        //posible metodo a utilizar
+        public async Task<IEnumerable<DetalleReservas>> GetId(int id)
+        {
+            var detallereservas = await _context.DetalleReservas.Where(x => x.IdReserva == id).ToListAsync();
+
+            return detallereservas;
+
+        }
     }
 }

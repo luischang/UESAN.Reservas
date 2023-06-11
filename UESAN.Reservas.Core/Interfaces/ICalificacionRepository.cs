@@ -4,10 +4,11 @@ namespace UESAN.Reservas.Core.Interfaces
 {
     public interface ICalificacionRepository
     {
-        Calificacion GetById(int idCalificacion);
-        void Create(Calificacion calificacion);
-        void Update(Calificacion calificacion);
-        void Delete(Calificacion calificacion);
+        Task<bool> Delete(int id);
+        Task<IEnumerable<Calificacion>> GetAll();
+        Task<Calificacion> GetById(int id);
+        Task<bool> Insert(Calificacion calificacion);
+        Task<bool> Update(Calificacion calificacion);
 
     }
 }

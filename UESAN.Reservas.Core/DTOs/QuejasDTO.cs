@@ -12,7 +12,7 @@ namespace UESAN.Reservas.Core.DTOs
 
         public DateTime? Fecha { get; set; }
 
-        public int? IdUsuario { get; set; }
+        public int IdUsuario { get; set; }
 
         public string? Descripcion { get; set; }
     }
@@ -21,7 +21,7 @@ namespace UESAN.Reservas.Core.DTOs
 
         public DateTime? Fecha { get; set; }
 
-        public int? IdUsuario { get; set; }
+        public int IdUsuario { get; set; }
 
         public string? Descripcion { get; set; }
     }

@@ -28,8 +28,8 @@ builder.Services.AddTransient<ITipoUsuarioService, TipoUsuarioService>();
 builder.Services.AddTransient<ICalificacionService, CalificacionService>();
 builder.Services.AddTransient<ICalificacionRepository, CalificacionRepository >();
 
-//builder.Services.AddTransient<IOfertaService, OfertaService>(); to do
-//builder.Services.AddTransient<IOfertaRepository, OfertaRepository>(); to do
+builder.Services.AddTransient<IOfertasService, OfertasService>();
+builder.Services.AddTransient<IOfertasRepository, OfertasRepository>(); 
 
 builder.Services.AddTransient<IPagoService, PagoService>();
 builder.Services.AddTransient<IPagoRepository, PagoRepository>();
@@ -52,9 +52,6 @@ builder.Services.AddTransient<IDetalleReservaService, DetalleReservaService>();
 
 builder.Services.AddTransient<IIdEstadoReservaRepository, IdEstadoReservaRepository>();
 builder.Services.AddTransient<IIdEstadoReservaService, IdEstadoReservaService>();
-
-builder.Services.AddTransient<IReservasOrderRepository, ReservasOrderRepository>();
-builder.Services.AddTransient<IReservasOrderService, ReservasOrderService>();
 
 builder.Services.AddTransient<IServicioRepository, ServicioRepository>();
 builder.Services.AddTransient<IServicioService, ServicioService>();

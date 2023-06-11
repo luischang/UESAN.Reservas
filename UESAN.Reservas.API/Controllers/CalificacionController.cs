@@ -4,58 +4,61 @@ using UESAN.Reservas.Core.Interfaces;
 
 namespace UESAN.Reservas.API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/v1/[controller]")]
     [ApiController]
     public class CalificacionController : ControllerBase
     {
-        private readonly ICalificacionService calificacionService;
+        private readonly ICalificacionService _calificacionService;
 
         public CalificacionController(ICalificacionService calificacionService)
         {
-            this.calificacionService = calificacionService;
+            _calificacionService = calificacionService;
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetAll()
+        {
+            var calificaciones = await _calificacionService.GetAll();
+            return Ok(calificaciones);
         }
 
         [HttpGet("{id}")]
-        public IActionResult GetCalificacion(int id)
+        public async Task<IActionResult> GetById(int id)
         {
-            //Todo: Pendiente GetCalifiacionById en el Service
-            //var calificacion = calificacionService.GetCalificacionById(id);
+            var calificacion = await _calificacionService.GetById(id);
+            if (calificacion == null)
+                return NotFound();
 
-            //if (calificacion == null)
-            //    return NotFound();
-
-            return Ok(/*calificacion*/);
+            return Ok(calificacion);
         }
 
-
-        [HttpPut("{id}")]
-        public IActionResult ActualizarCalificacion(int id, [FromBody] CalificacionDTO calificacionDTO)
+        [HttpPost]
+        public async Task<IActionResult> Insert(CalificacionInsertDTO calificacion)
         {
-            if (id != calificacionDTO.IdCalificacion)
+            var result = await _calificacionService.Insert(calificacion);
+            if (!result)
                 return BadRequest();
-            //Todo: Pendiente GetCalifiacionById en el Service
-            //var calificacionExistente = calificacionService.GetCalificacionById(id);
-
-            //if (calificacionExistente == null)
-            //    return NotFound();
-
-            ////Todo: Pendiente ActualizarCalificacion en el service
-            //calificacionService.ActualizarCalificacion(calificacionDTO);
-
             return NoContent();
         }
 
-        [HttpDelete("{id}")]
-        public IActionResult EliminarCalificacion(int id)
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Update(int id, CalificacionRecomendacionDTO calificacion)
         {
-            //Todo: Pendiente GetCalifiacionById en el Service
-            //var calificacionExistente = calificacionService.GetCalificacionById(id);
+            if (id != calificacion.IdCalificacion)
+                return NotFound();
 
-            //if (calificacionExistente == null)
-            //    return NotFound();
+            var result = await _calificacionService.Update(calificacion);
+            if (!result)
+                return BadRequest();
 
-            //Todo: Pendiente EliminarCalificacionID en el Service
-            //calificacionService.EliminarCalificacion(id);
+            return NoContent();
+        }
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var result = await _calificacionService.Delete(id);
+            if (!result)
+                return BadRequest();
 
             return NoContent();
         }

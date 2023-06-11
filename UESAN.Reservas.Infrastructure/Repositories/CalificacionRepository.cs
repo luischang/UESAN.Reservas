@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,35 +12,52 @@ namespace UESAN.Reservas.Infrastructure.Repositories
 {
     public class CalificacionRepository : ICalificacionRepository
     {
-        private readonly ReservasContext dbContext;
+        private readonly ReservasContext _dbContext;
 
         public CalificacionRepository(ReservasContext dbContext)
         {
-            this.dbContext = dbContext;
+            _dbContext = dbContext;
         }
 
-        public Calificacion GetById(int idCalificacion)
+        public async Task<IEnumerable<Calificacion>> GetAll()
         {
-            return dbContext.Calificacion.FirstOrDefault(c => c.IdCalificacion == idCalificacion);
+            return await _dbContext
+                         .Calificacion
+                         .ToListAsync();
         }
 
-        public void Create(Calificacion calificacion)
+        public async Task<Calificacion> GetById(int id)
         {
-            dbContext.Calificacion.Add(calificacion);
-            dbContext.SaveChanges();
+            return await _dbContext
+                        .Calificacion
+                        .Where(x => x.IdCalificacion == id)
+                        .FirstOrDefaultAsync();
         }
 
-        public void Update(Calificacion calificacion)
+        public async Task<bool> Insert(Calificacion calificacion)
         {
-            dbContext.Calificacion.Update(calificacion);
-            dbContext.SaveChanges();
+            await _dbContext.Calificacion.AddAsync(calificacion);
+            int rows = await _dbContext.SaveChangesAsync();
+            return rows > 0;
         }
-
-        public void Delete(Calificacion calificacion)
+        public async Task<bool> Update(Calificacion calificacion)
         {
-            dbContext.Calificacion.Remove(calificacion);
-            dbContext.SaveChanges();
+            _dbContext.Calificacion.Update(calificacion);
+            int rows = await _dbContext.SaveChangesAsync();
+            return rows > 0;
         }
+        public async Task<bool> Delete(int id)
+        {
+            var findCalificacion = await _dbContext
+                                .Calificacion
+                                .Where(x => x.IdCalificacion == id)
+                                .FirstOrDefaultAsync();
+            if (findCalificacion == null)
+                return false;
 
+            findCalificacion.NumEstrellas = 0;
+            int rows = await _dbContext.SaveChangesAsync();
+            return rows > 0;
+        }
     }
 }

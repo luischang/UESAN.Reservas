@@ -88,7 +88,7 @@ public partial class ReservasContext : DbContext
 
         modelBuilder.Entity<DetalleServicios>(entity =>
         {
-            entity.HasKey(e => e.IdReserva).HasName("PK__tmp_ms_x__9E953BE1B58A815C");
+            entity.HasKey(e => e.IdReserva);
 
             entity.ToTable("Detalle_Servicios");
 

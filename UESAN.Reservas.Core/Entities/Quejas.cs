@@ -9,7 +9,7 @@ public partial class Quejas
 
     public DateTime? Fecha { get; set; }
 
-    public int? IdUsuario { get; set; }
+    public int IdUsuario { get; set; }
 
     public string? Descripcion { get; set; }
 
