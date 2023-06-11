@@ -72,8 +72,8 @@
     <Build Include="dbo\Tables\Pago.sql" />
     <Build Include="dbo\Tables\Tipo_Habitacion.sql" />
     <Build Include="dbo\Tables\Habitacion.sql" />
-    <Build Include="dbo\Tables\Detalle_Reservas.sql" />
     <Build Include="dbo\Tables\Servicio.sql" />
+    <Build Include="dbo\Tables\Detalle_Reservas.sql" />
     <Build Include="dbo\Tables\Detalle_Servicios.sql" />
   </ItemGroup>
 </Project>
