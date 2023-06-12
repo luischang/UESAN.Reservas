@@ -8,5 +8,6 @@ namespace UESAN.Reservas.Core.Interfaces
         Task<IEnumerable<PagoDescripcionDTO>> GetAll();
         Task<PagoDTO> GetById(int id);
         Task<bool> Insert(PagoInsertDTO pagoInsertDTO);
+        Task<bool> Update(PagoDescripcionDTO pagoDescripcionDTO);
     }
 }

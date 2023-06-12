@@ -30,6 +30,8 @@ namespace UESAN.Reservas.Core.DTOs
 
     {
         public int IdReserva { get; set; }
+        public int MetodoPago { get; set; }
+        public decimal? MontoTotal { get; set; }
         public int Estado { get; set; }
     }
 }
