@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using UESAN.Reservas.Core.DTOs;
 using UESAN.Reservas.Core.Interfaces;
+using UESAN.Reservas.Core.Services;
 
 namespace UESAN.Reservas.API.Controllers
 {
@@ -25,6 +27,31 @@ namespace UESAN.Reservas.API.Controllers
         {
             var result = await _tipoHabitacionService.GetById(id);
             if (result == null)
+                return NotFound();
+            return Ok(result);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Insert(TipoHabitacionInsertDTO tipoHabitacionInsertDTO)
+        {
+            var result = await _tipoHabitacionService.Insert(tipoHabitacionInsertDTO);
+            if (!result)
+                return BadRequest();
+            return NoContent();
+        }
+
+        [HttpPut("{idUpdate}")]
+        public async Task<IActionResult> Update(TipoHabitacionDescriptionDTO tipoHabitacionDescriptionDTO)
+        {
+            var result = await _tipoHabitacionService.Update(tipoHabitacionDescriptionDTO);
+            return Ok(result);
+        }
+
+        [HttpDelete]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var result = await _tipoHabitacionService.Delete(id);
+            if (!result)
                 return NotFound();
             return Ok(result);
         }

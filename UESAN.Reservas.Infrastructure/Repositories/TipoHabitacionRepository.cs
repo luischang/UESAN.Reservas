@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UESAN.Reservas.Core.DTOs;
 using UESAN.Reservas.Core.Entities;
 using UESAN.Reservas.Core.Interfaces;
 using UESAN.Reservas.Infrastructure.Data;
@@ -53,5 +54,20 @@ namespace UESAN.Reservas.Infrastructure.Repositories
             var countRows = await _context.SaveChangesAsync();
             return countRows > 0;
         }
+        public async Task<bool> Delete(int id)
+        {
+            var tipoHabitacion = await _context.TipoHabitacion.FindAsync(id);
+            if (tipoHabitacion != null)
+            {
+                _context.TipoHabitacion.Remove(tipoHabitacion);
+                int rows = await _context.SaveChangesAsync();
+                return rows > 0;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
     }
 }
