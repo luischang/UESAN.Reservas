@@ -108,16 +108,16 @@ namespace UESAN.Reservas.Core.Services
         }
 
 
-        /*public async Task<bool> Update(PagoDescripcionDTO pagoDescripcionDTO)
+        public async Task<bool> Update(PagoDescripcionDTO pagoDescripcionDTO)
         {
             var pago = await _pagoRepository.GetById(pagoDescripcionDTO.IdPago);
             if (pago == null)
                 return false;
-            pago.Descripcion = pagoDescripcionDTO.Descripcion;
+            pago.MetodoPago = pagoDescripcionDTO.MetodoPago;
 
             var result = await _pagoRepository.Update(pago);
             return result;
-        }*/
+        }
 
         public async Task<bool> Delete(int id)
         {

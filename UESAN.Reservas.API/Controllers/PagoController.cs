@@ -42,7 +42,7 @@ namespace UESAN.Reservas.API.Controllers
             return NoContent();
         }
 
-        /*[HttpPut("{id}")]
+        [HttpPut("{id}")]
         public async Task<IActionResult> Update(int id, PagoDescripcionDTO pago)
         {
             if (id != pago.IdPago)
@@ -53,7 +53,7 @@ namespace UESAN.Reservas.API.Controllers
                 return BadRequest();
 
             return NoContent();
-        }*/
+        }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
