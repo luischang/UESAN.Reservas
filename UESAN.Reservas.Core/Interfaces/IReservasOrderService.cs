@@ -7,7 +7,7 @@ namespace UESAN.Reservas.Core.Interfaces
         Task<bool> Delete(int id);
         Task<IEnumerable<ReservasOrderDescriptionDTO>> GetAll();
         Task<ReservasOrderDTO> GetById(int id);
-        Task<bool> Insert(ReservasOrderInsertDTO reservasOrderInsertDTO);
+        Task<bool> Insert(ReservasOrderInsertarDTO reservasOrderInsertDTO);
         Task<bool> Update(ReservasOrderDescriptionDTO reservasOrderDescriptionDTO);
     }
 }

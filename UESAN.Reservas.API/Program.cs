@@ -56,6 +56,12 @@ builder.Services.AddTransient<IIdEstadoReservaService, IdEstadoReservaService>()
 builder.Services.AddTransient<IServicioRepository, ServicioRepository>();
 builder.Services.AddTransient<IServicioService, ServicioService>();
 
+builder.Services.AddTransient<ISalaDeEventosRepository, SalaDeEventosRepository>();
+builder.Services.AddTransient<ISalaDeEventosService, SalaDeEventosService>();
+
+builder.Services.AddTransient<IDetalleSalaDeEventosService, DetalleSalaDeEventosService>();
+builder.Services.AddTransient<IDetalleSalaEventosRepository, DetalleSalaEventosRepository>();
+
 
 
 

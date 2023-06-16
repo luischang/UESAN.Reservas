@@ -10,7 +10,8 @@ using UESAN.Reservas.Infrastructure.Data;
 
 namespace UESAN.Reservas.Infrastructure.Repositories
 {
-    public class OfertasRepository : IOfertasRepository    {
+    public class OfertasRepository : IOfertasRepository    
+    {
         private readonly ReservasContext _dbContext;
 
         public OfertasRepository(ReservasContext dbContext)
@@ -69,9 +70,6 @@ namespace UESAN.Reservas.Infrastructure.Repositories
             return rows > 0;
         }
 
-        public Task<Ofertas> GetById(int? id)
-        {
-            throw new NotImplementedException();
-        }
+       
     }
 }

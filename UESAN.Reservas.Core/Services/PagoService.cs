@@ -16,14 +16,16 @@ namespace UESAN.Reservas.Core.Services
         private readonly IDetalleReservasRepository _reservasRepository;
         private readonly IOfertasRepository _oferta;
         private readonly IReservasOrderRepository _reservas;
+        private readonly IDetalleSalaEventosRepository _salaEventos;
 
-        public PagoService(IPagoRepository pagoRepository, IDetalleServiciosRepository detalleServiciosRepository, IDetalleReservasRepository detalleReservasRepository, IOfertasRepository oferta, IReservasOrderRepository reservasOrderRepository)
+        public PagoService(IPagoRepository pagoRepository, IDetalleServiciosRepository detalleServiciosRepository, IDetalleReservasRepository detalleReservasRepository, IOfertasRepository oferta, IReservasOrderRepository reservasOrderRepository, IDetalleSalaEventosRepository detalleSalaEventosRepository)
         {
             _pagoRepository = pagoRepository;
             _repo = detalleServiciosRepository;
             _reservasRepository = detalleReservasRepository;
             _oferta = oferta;
             _reservas = reservasOrderRepository;
+            _salaEventos = detalleSalaEventosRepository;
 
         }
 
@@ -70,17 +72,26 @@ namespace UESAN.Reservas.Core.Services
         {
             var acum1 = 0.0;
             var acum2 = 0.0;
+            var acum3 = 0.0;
             var descuento = 0.0;
             //Primero traemos todos lo detalles servicios que estan registrados con la reserva creada
             var detallesS = await _repo.GetById(pagoInsertDTO.IdReserva);
             //traemos lo detalles reservas con el idReserva
             var detallesR = await _reservasRepository.GetId(pagoInsertDTO.IdReserva);
+
+            var detallesSal = await _salaEventos.GetId(pagoInsertDTO.IdReserva);
+
             //Traemos la oferta la que esta expuesta la reserva
             var reser = await _reservas.GetById(pagoInsertDTO.IdReserva);
 
             var oferta = await _oferta.GetByIdOferta(reser.IdOfertas);
             //asignamos decuento
-            descuento = (double)oferta.Descuento;
+            
+            if (oferta != null)
+            {
+                descuento = (double)oferta.Descuento;
+            }
+
             foreach (var det in detallesS)//aqui traemos los detalles y extraemos sus precios
             {
                 if (det.SubTotal != null)
@@ -95,7 +106,16 @@ namespace UESAN.Reservas.Core.Services
                     acum2 = acum2 + (int)deta.Subtotal;
                 }
             }
-            var pagoTotal = (acum1 + acum2) - descuento;
+            foreach (var detaSala in detallesSal)
+            {
+                if (detaSala.SubTotal != null)
+                {
+                    acum3 = acum3 + (int)detaSala.SubTotal;
+                }
+            }
+
+
+            var pagoTotal = (acum1 + acum2 + acum3) - descuento;
             var pago = new Pago()
             {
                 IdReserva = pagoInsertDTO.IdReserva,

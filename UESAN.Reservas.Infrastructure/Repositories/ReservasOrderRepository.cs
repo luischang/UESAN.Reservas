@@ -23,17 +23,17 @@ namespace UESAN.Reservas.Infrastructure.Repositories
         {
             return await _dbContext
                          .ReservasOrder
-                         .Where(x => x.IdEstadoRes != 3)
+                         .Where(x => x.IdEstadoRes != 3 && x.IdReserva != null)
                          .ToListAsync();
         }
 
         public async Task<ReservasOrder> GetById(int id)
         {
             return await _dbContext
-                        .ReservasOrder
-                        .Where(x => x.IdReserva == id)
-                        .FirstOrDefaultAsync();
+                .ReservasOrder
+                .FirstOrDefaultAsync(x => x.IdReserva == id && x.IdReserva != null);
         }
+
 
         public async Task<bool> Insert(ReservasOrder reservasOrder)
         {

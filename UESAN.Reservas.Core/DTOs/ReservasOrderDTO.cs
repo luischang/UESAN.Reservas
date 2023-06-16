@@ -62,4 +62,21 @@ namespace UESAN.Reservas.Core.DTOs
         }
 
     }
+
+    public class ReservasOrderInsertarDTO
+    {
+
+        public int? IdUsuario { get; set; }
+
+        public DateTime? FechaIni { get; set; }
+
+        public DateTime? FechaFin { get; set; }
+
+        public int? IdEstadoRes { get; set; }
+
+        public int? CantPersonas { get; set; }
+
+        public int? IdOfertas { get; set; }
+
+    }
 }

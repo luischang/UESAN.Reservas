@@ -32,8 +32,8 @@ namespace UESAN.Reservas.API.Controllers
             return Ok(reservasOrder);
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Insert(ReservasOrderInsertDTO reservasOrder)
+        [HttpPost("Crear")]
+        public async Task<IActionResult> Insert(ReservasOrderInsertarDTO reservasOrder)
         {
             var result = await _reservasOrderService.Insert(reservasOrder);
             if (!result)
@@ -41,7 +41,7 @@ namespace UESAN.Reservas.API.Controllers
             return NoContent();
         }
 
-        [HttpPut("{id}")]
+        [HttpPut("Actualizar/{id}")]
         public async Task<IActionResult> Update(int id, ReservasOrderDescriptionDTO reservasOrder)
         {
             if (id != reservasOrder.IdReserva)
@@ -53,7 +53,7 @@ namespace UESAN.Reservas.API.Controllers
 
             return NoContent();
         }
-        [HttpDelete("{id}")]
+        [HttpDelete("Eliminar/{id}")]
         public async Task<IActionResult> Delete(int id)
         {
             var result = await _reservasOrderService.Delete(id);

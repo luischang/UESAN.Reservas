@@ -42,9 +42,16 @@ public partial class ReservasContext : DbContext
 
     public virtual DbSet<Usuario> Usuario { get; set; }
 
+    public virtual DbSet<TipoSalaEvento>TipoSalaEvento { get; set; }
+
+    public virtual DbSet<SalaDeEventos>SalaDeEventos { get; set; }
+
+    public virtual DbSet<DetalleSalaEventos>DetalleSalaEventos { get; set; }
+
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Server=JefersonSD\\SQLEXPRESS;DataBase=Reservas;TrustServerCertificate=True;Integrated Security=true");
+        => optionsBuilder.UseSqlServer("Server=MESIASADAN\\BI;DataBase=Reservas;TrustServerCertificate=True;Integrated Security=true");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -279,6 +286,59 @@ public partial class ReservasContext : DbContext
             entity.HasOne(d => d.IdTipoNavigation).WithMany(p => p.Usuario)
                 .HasForeignKey(d => d.IdTipo)
                 .HasConstraintName("FK_Usuario.Id_Tipo");
+        });
+
+        modelBuilder.Entity<DetalleSalaEventos>(entity =>
+        {
+            entity.HasKey(e => e.IdReserva);
+
+            entity.ToTable("Detalle_SalaEventos");
+
+            entity.Property(e => e.FechaFin)
+                .HasColumnType("date")
+                .HasColumnName("Fecha_Fin");
+            entity.Property(e => e.FechaInicio)
+                .HasColumnType("date")
+                .HasColumnName("Fecha_Inicio");
+            entity.Property(e => e.IdReserva).HasColumnName("Id_Reserva");
+            entity.Property(e => e.IdSalaEvento).HasColumnName("Id_SalaEvento");
+            entity.Property(e => e.SubTotal).HasColumnType("decimal(10, 2)");
+
+            entity.HasOne(d => d.IdReservaNavigation).WithMany()
+                .HasForeignKey(d => d.IdReserva)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_Detalle_SalaEventos.Id_Reserva");
+
+            entity.HasOne(d => d.IdSalaEventoNavigation).WithMany()
+                .HasForeignKey(d => d.IdSalaEvento)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_Detalle_SalaEventos.Id_SalaEvento");
+        });
+
+        modelBuilder.Entity<SalaDeEventos>(entity =>
+        {
+            entity.HasKey(e => e.IdSalaEvento).HasName("PK__Sala de __94AF8D7ADF591966");
+
+            entity.ToTable("Sala de eventos");
+
+            entity.Property(e => e.IdSalaEvento).HasColumnName("Id_SalaEvento");
+            entity.Property(e => e.Descripcion).HasMaxLength(250);
+            entity.Property(e => e.IdTipoEvento).HasColumnName("Id_Tipo_Evento");
+            entity.Property(e => e.Precio).HasColumnType("decimal(10, 2)");
+
+            entity.HasOne(d => d.IdTipoEventoNavigation).WithMany(p => p.SalaDeEventos)
+                .HasForeignKey(d => d.IdTipoEvento)
+                .HasConstraintName("FK_Sala de eventos.Id_Tipo_Evento");
+        });
+
+        modelBuilder.Entity<TipoSalaEvento>(entity =>
+        {
+            entity.HasKey(e => e.IdTipoEvento).HasName("PK__Tipo_Sal__46C5D9A726986D0C");
+
+            entity.ToTable("Tipo_Sala_Evento");
+
+            entity.Property(e => e.IdTipoEvento).HasColumnName("Id_Tipo_Evento");
+            entity.Property(e => e.Descripcion).HasMaxLength(250);
         });
 
         OnModelCreatingPartial(modelBuilder);

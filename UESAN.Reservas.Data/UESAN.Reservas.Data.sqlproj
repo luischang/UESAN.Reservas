@@ -75,5 +75,8 @@
     <Build Include="dbo\Tables\Servicio.sql" />
     <Build Include="dbo\Tables\Detalle_Reservas.sql" />
     <Build Include="dbo\Tables\Detalle_Servicios.sql" />
+    <Build Include="dbo\Tables\Tipo_Sala_Evento.sql" />
+    <Build Include="dbo\Tables\Sala de eventos.sql" />
+    <Build Include="dbo\Tables\Detalle_SalaEventos.sql" />
   </ItemGroup>
 </Project>
