@@ -40,7 +40,7 @@ namespace UESAN.Reservas.API.Controllers
             var result = await _ofertasService.Insert(ofertas);
             if (!result)
                 return BadRequest();
-            return NoContent();
+            return Ok(result);
         }
 
         [HttpPut("{id}")]
@@ -53,7 +53,7 @@ namespace UESAN.Reservas.API.Controllers
             if (!result)
                 return BadRequest();
 
-            return NoContent();
+            return Ok(result);
         }
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
@@ -62,7 +62,7 @@ namespace UESAN.Reservas.API.Controllers
             if (!result)
                 return BadRequest();
 
-            return NoContent();
+            return Ok(result);
         }
     }
 }

@@ -39,7 +39,7 @@ namespace UESAN.Reservas.API.Controllers
             var result = await _pagoService.Insert(pago);
             if (!result)
                 return BadRequest();
-            return NoContent();
+            return Ok(result);
         }
 
         [HttpPut("{id}")]
@@ -52,7 +52,7 @@ namespace UESAN.Reservas.API.Controllers
             if (!result)
                 return BadRequest();
 
-            return NoContent();
+            return Ok(result);
         }
 
         [HttpDelete("{id}")]
@@ -62,7 +62,7 @@ namespace UESAN.Reservas.API.Controllers
             if (!result)
                 return BadRequest();
 
-            return NoContent();
+            return Ok(result);
         }
     }
 }

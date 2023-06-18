@@ -22,7 +22,7 @@ namespace UESAN.Reservas.Infrastructure.Repositories
         public async Task<IEnumerable<Calificacion>> GetAll()
         {
             return await _dbContext
-                         .Calificacion
+                         .Calificacion.Where(x=>x.NumEstrellas>0)
                          .ToListAsync();
         }
 
