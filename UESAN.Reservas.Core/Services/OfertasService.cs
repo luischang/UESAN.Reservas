@@ -28,6 +28,10 @@ namespace UESAN.Reservas.Core.Services
                 var ofertaDTO = new OfertasDescripcionDTO();
                 ofertaDTO.IdOfertas = oferta.IdOfertas;
                 ofertaDTO.Descripcion = oferta.Descripcion;
+                ofertaDTO.Descuento = oferta.Descuento;
+                ofertaDTO.FechaIni = oferta.FechaIni;
+                ofertaDTO.FechaFin = oferta.FechaFin;
+                ofertaDTO.Estado = oferta.Estado;
 
                 ofertasDTO.Add(ofertaDTO);
             }
@@ -40,6 +44,9 @@ namespace UESAN.Reservas.Core.Services
             var ofertasDTO = new OfertasDTO();
             ofertasDTO.IdOfertas = ofertas.IdOfertas;
             ofertasDTO.Descripcion = ofertas.Descripcion;
+            ofertasDTO.Descuento = ofertas.Descuento;
+            ofertasDTO.FechaInicio = ofertas.FechaIni;
+            ofertasDTO.FechaFin = ofertas.FechaFin;
             ofertasDTO.Estado = ofertas.Estado;
             return ofertasDTO;
         }

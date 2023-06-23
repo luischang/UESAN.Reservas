@@ -11,13 +11,13 @@ namespace UESAN.Reservas.Core.DTOs
     {
         public int IdOfertas { get; set; }
         public string Descripcion { get; set; }
-        public bool? Estado { get; set; }
+        public bool Estado { get; set; }
 
-        public decimal Descuento { get; set; }
+        public decimal? Descuento { get; set; }
 
-        public DateTime FechaInicio { get; set; }
+        public DateTime? FechaInicio { get; set; }
 
-        public DateTime FechaFin { get; set; }
+        public DateTime? FechaFin { get; set; }
     }
 
     public class OfertasDescripcionDTO

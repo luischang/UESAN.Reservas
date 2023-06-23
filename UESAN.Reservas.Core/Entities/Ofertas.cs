@@ -15,7 +15,7 @@ public partial class Ofertas
 
     public DateTime? FechaFin { get; set; }
 
-    public bool? Estado { get; set; }
+    public bool Estado { get; set; }
 
     public virtual ICollection<ReservasOrder> ReservasOrder { get; set; } = new List<ReservasOrder>();
 }
