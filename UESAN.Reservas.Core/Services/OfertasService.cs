@@ -56,7 +56,9 @@ namespace UESAN.Reservas.Core.Services
             var ofertas = new Ofertas();
             ofertas.Descripcion = ofertasInsertDTO.Descripcion;
             ofertas.Estado = ofertasInsertDTO.Estado;
-            //afregar los otros campos del DTO.
+            ofertas.FechaIni = ofertasInsertDTO.FechaIni;
+            ofertas.FechaFin = ofertasInsertDTO.FechaFin;
+            ofertas.Descuento = ofertasInsertDTO.Descuento;
             var result = await _ofertasRepository.Insert(ofertas);
             return result;
         }

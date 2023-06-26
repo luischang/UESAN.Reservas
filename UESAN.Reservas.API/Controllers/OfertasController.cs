@@ -18,7 +18,7 @@ namespace UESAN.Reservas.API.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAll()
+        public async Task<ActionResult> GetAll()
         {
             var ofertas = await _ofertasService.GetAll();
             return Ok(ofertas);
