@@ -55,7 +55,7 @@ namespace UESAN.Reservas.Core.Services
             return reservasOrderDTO;
         }
 
-        public async Task<bool> Insert(ReservasOrderInsertarDTO reservasOrderInsertDTO)
+        public async Task<int> Insert(ReservasOrderInsertarDTO reservasOrderInsertDTO)
         {
             var reservasOrder = new ReservasOrder();
             reservasOrder.IdUsuario = reservasOrderInsertDTO.IdUsuario;

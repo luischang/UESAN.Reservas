@@ -1,4 +1,5 @@
 ﻿using UESAN.Reservas.Core.DTOs;
+using UESAN.Reservas.Core.Entities;
 
 namespace UESAN.Reservas.Core.Interfaces
 {
@@ -7,7 +8,7 @@ namespace UESAN.Reservas.Core.Interfaces
         Task<bool> Delete(int id);
         Task<IEnumerable<ReservasOrderDescriptionDTO>> GetAll();
         Task<ReservasOrderDTO> GetById(int id);
-        Task<bool> Insert(ReservasOrderInsertarDTO reservasOrderInsertDTO);
+        Task<int> Insert(ReservasOrderInsertarDTO reservasOrderInsertDTO);
         Task<bool> Update(ReservasOrderDescriptionDTO reservasOrderDescriptionDTO);
     }
 }

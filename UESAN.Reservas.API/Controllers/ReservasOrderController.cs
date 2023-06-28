@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.AspNetCore.Mvc;
 using UESAN.Reservas.Core.DTOs;
 using UESAN.Reservas.Core.Entities;
 using UESAN.Reservas.Core.Interfaces;
@@ -36,9 +37,9 @@ namespace UESAN.Reservas.API.Controllers
         public async Task<IActionResult> Insert(ReservasOrderInsertarDTO reservasOrder)
         {
             var result = await _reservasOrderService.Insert(reservasOrder);
-            if (!result)
+            if (result == null)
                 return BadRequest();
-            return NoContent();
+            return Ok(result);
         }
 
         [HttpPut("Actualizar/{id}")]

@@ -35,11 +35,16 @@ namespace UESAN.Reservas.Infrastructure.Repositories
         }
 
 
-        public async Task<bool> Insert(ReservasOrder reservasOrder)
+        public async Task<int> Insert(ReservasOrder reservasOrder)
         {
             await _dbContext.ReservasOrder.AddAsync(reservasOrder);
-            int rows = await _dbContext.SaveChangesAsync();
-            return rows > 0;
+            await _dbContext.SaveChangesAsync();
+            // Aquí se accede al IdReserva generado después de guardar los cambios en la base de datos
+            var entry = _dbContext.Entry(reservasOrder);
+            var idReserva = (int)entry.Property("IdReserva").CurrentValue;
+
+
+            return idReserva;
         }
         public async Task<bool> Update(ReservasOrder reservasOrder)
         {
