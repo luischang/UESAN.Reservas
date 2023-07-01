@@ -9,5 +9,6 @@ namespace UESAN.Reservas.Core.Interfaces
         Task<ReservasOrder> GetById(int id);
         Task<int> Insert(ReservasOrder reservasOrder);
         Task<bool> Update(ReservasOrder reservasOrder);
+        Task<bool> EstadoC(int id);
     }
 }

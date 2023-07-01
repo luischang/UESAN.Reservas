@@ -124,7 +124,13 @@ namespace UESAN.Reservas.Core.Services
                 MontoTotal = (decimal)pagoTotal,
             };
             var result = await _pagoRepository.Insert(pago);
-            return result;
+
+            if (result ){
+                var cambio = await _reservas.EstadoC(reser.IdReserva);
+                
+                return result && cambio;
+            }
+            return false;
         }
 
 
