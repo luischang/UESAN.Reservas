@@ -26,7 +26,10 @@ namespace UESAN.Reservas.Core.DTOs
 
     public class DetalleServiciosInsertDTO
     {
-        public decimal? SubTotal { get; set; }
+        public int IdReserva { get; set; }
+
+        public int? IdServicio { get; set; }
+
     }
 
 }

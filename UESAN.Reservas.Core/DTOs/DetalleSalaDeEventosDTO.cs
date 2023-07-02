@@ -37,6 +37,5 @@ namespace UESAN.Reservas.Core.DTOs
 
         public DateTime? FechaFin { get; set; }
 
-        public decimal? SubTotal { get; set; }
     }
 }

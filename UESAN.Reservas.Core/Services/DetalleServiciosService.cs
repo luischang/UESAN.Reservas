@@ -12,10 +12,12 @@ namespace UESAN.Reservas.Core.Services
     public class DetalleServiciosService : IDetalleServiciosService
     {
         private readonly IDetalleServiciosRepository _detalleServiciosRepository;
+        private readonly IServicioRepository _servicioRepository;
 
-        public DetalleServiciosService(IDetalleServiciosRepository detalleServiciosRepository)
+        public DetalleServiciosService(IDetalleServiciosRepository detalleServiciosRepository, IServicioRepository servicioRepository)
         {
             _detalleServiciosRepository = detalleServiciosRepository;
+            _servicioRepository = servicioRepository;
         }
 
         public async Task<IEnumerable<DetalleServiciosDescriptionDTO>> GetAll()
@@ -53,8 +55,11 @@ namespace UESAN.Reservas.Core.Services
 
         public async Task<bool> Insert(DetalleServiciosInsertDTO detalleServiciosInsertDTO)
         {
+            var precio = await _servicioRepository.GetById((int)detalleServiciosInsertDTO.IdServicio);
             var detalleServicios = new DetalleServicios();
-            detalleServicios.SubTotal = detalleServiciosInsertDTO.SubTotal;
+            detalleServicios.IdReserva = detalleServiciosInsertDTO.IdReserva;
+            detalleServicios.IdServicio = detalleServiciosInsertDTO.IdServicio;
+            detalleServicios.SubTotal = precio.Precio;
 
             var result = await _detalleServiciosRepository.Insert(detalleServicios);
             return result;
