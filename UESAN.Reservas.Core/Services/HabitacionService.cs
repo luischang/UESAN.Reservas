@@ -81,26 +81,26 @@ namespace UESAN.Reservas.Core.Services
 
             if (th != null)
             {
-                var precioh = 0;
-                if (tipoHabitacion.Descripcion == "Simple")
-                {
-                    precioh = 15;
-                }
-                else if (tipoHabitacion.Descripcion == "Doble")
-                {
-                    precioh = 25;
-                }
-                else if (tipoHabitacion.Descripcion == "Matrimonial")
-                {
-                    precioh = 45;
-                }
+                //var precioh = 0;
+                //if (tipoHabitacion.Descripcion == "Simple")
+                //{
+                //    precioh = 15;
+                //}
+                //else if (tipoHabitacion.Descripcion == "Doble")
+                //{
+                //    precioh = 25;
+                //}
+                //else if (tipoHabitacion.Descripcion == "Matrimonial")
+                //{
+                //    precioh = 45;
+                //}
                 var habitacion = new Habitacion()
                 {
                     IdTipoHabi = th.IdTipoHabi,
                     Descripcion = habitacionInsertDTO.Descripcion,
                     Capacidad = habitacionInsertDTO.Capacidad,
                     Estado = true,
-                    Precio = precioh,
+                    Precio = habitacionInsertDTO.Precio,
                     CantCamas = habitacionInsertDTO.Cant_Camas,
 
 
