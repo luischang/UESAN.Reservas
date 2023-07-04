@@ -77,8 +77,7 @@ namespace UESAN.Reservas.Infrastructure.Repositories
                 return false;
 
             findReservasOrder.IdEstadoRes = 2;
-            int rows = await _dbContext.SaveChangesAsync();
-            return rows > 0;
+            return findReservasOrder.IdEstadoRes == 2;
         }
     }
 }

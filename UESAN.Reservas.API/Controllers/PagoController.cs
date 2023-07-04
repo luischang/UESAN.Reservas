@@ -37,8 +37,6 @@ namespace UESAN.Reservas.API.Controllers
         public async Task<IActionResult> Insert(PagoInsertDTO pago)
         {
             var result = await _pagoService.Insert(pago);
-            if (!result)
-                return BadRequest();
             return Ok(result);
         }
 

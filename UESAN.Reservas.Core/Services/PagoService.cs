@@ -68,7 +68,7 @@ namespace UESAN.Reservas.Core.Services
             return pagoDTO;
         }
 
-        public async Task<bool> Insert(PagoInsertDTO pagoInsertDTO)
+        public async Task<string> Insert(PagoInsertDTO pagoInsertDTO)
         {
             var acum1 = 0.0;
             var acum2 = 0.0;
@@ -81,6 +81,8 @@ namespace UESAN.Reservas.Core.Services
 
             var detallesSal = await _salaEventos.GetId(pagoInsertDTO.IdReserva);
 
+            var mensaje = "";
+
             //Traemos la oferta la que esta expuesta la reserva
             var reser = await _reservas.GetById(pagoInsertDTO.IdReserva);
 
@@ -90,6 +92,22 @@ namespace UESAN.Reservas.Core.Services
             if (oferta != null)
             {
                 descuento = (double)oferta.Descuento;
+                mensaje = mensaje + "Se obtuvo la oferta";
+            }
+
+            if (detallesS.Count() > 0)
+            {
+                mensaje = mensaje + "Se encontro el servicio";
+            }
+
+            if (detallesR.Count() > 0)
+            {
+                mensaje = mensaje + "Se encontro la habitacion";
+            }
+
+            if (detallesSal.Count() > 0)
+            {
+                mensaje = mensaje + "Se encontro la sala";
             }
 
             foreach (var det in detallesS)//aqui traemos los detalles y extraemos sus precios
@@ -127,10 +145,14 @@ namespace UESAN.Reservas.Core.Services
 
             if (result ){
                 var cambio = await _reservas.EstadoC(reser.IdReserva);
-                
-                return result && cambio;
+                if (cambio)
+                {
+                    mensaje = mensaje + "Se hizo el cambio en reservas";  
+                }
+                mensaje = mensaje + "Se creo el pago correctamente";
+                return mensaje;
             }
-            return false;
+            return mensaje;
         }
 
 
