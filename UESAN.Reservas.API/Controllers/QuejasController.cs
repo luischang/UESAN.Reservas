@@ -23,6 +23,13 @@ namespace UESAN.Reservas.API.Controllers
             return Ok(quejas);
         }
 
+        [HttpGet("QuejasUsuario")]
+        public async Task<IActionResult> QuejasPorUsuario(int idUsuario)
+        {
+            var quejas = await _quejasService.QuejasPorUsuario(idUsuario);
+            return Ok(quejas);
+        }
+
         [HttpPost("Crear")]
         public async Task<IActionResult> Insert(InsertQuejasDTO quejas)
         {

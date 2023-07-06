@@ -34,5 +34,14 @@ namespace UESAN.Reservas.API.Controllers
 
             return Ok(result);
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Usuario(int idUsuario)
+        {
+            var result = await _usuarioService.GetById(idUsuario);
+
+
+            return Ok(result);
+        }
     }
 }

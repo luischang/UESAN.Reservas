@@ -33,6 +33,14 @@ namespace UESAN.Reservas.API.Controllers
             return Ok(reservasOrder);
         }
 
+        [HttpGet("ReservasUsuario")]
+        public async Task<IActionResult> ReservasPorUsuario(int idUsuario)
+        {
+
+            var reservasOrder = await _reservasOrderService.ReservasPorUsuario(idUsuario);
+            return Ok(reservasOrder);
+        }
+
         [HttpPost("Crear")]
         public async Task<IActionResult> Insert(ReservasOrderInsertarDTO reservasOrder)
         {

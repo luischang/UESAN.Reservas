@@ -8,5 +8,6 @@ namespace UESAN.Reservas.Core.Interfaces
         Task<Usuario> SignIn(string email, string clave);
         Task<bool> SignUp(Usuario user);
         Task<int> GetLastUserId();
+        Task<IEnumerable<Usuario>> GetById(int idUsuario);
     }
 }

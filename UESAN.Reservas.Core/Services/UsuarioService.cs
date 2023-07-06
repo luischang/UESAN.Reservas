@@ -67,5 +67,15 @@ namespace UESAN.Reservas.Core.Services
             var result = await _usuarioRepository.SignUp(user);
             return result;
         }
+        public async Task<IEnumerable<Usuario>> GetById(int idUsuario)
+        {
+            var user = await _usuarioRepository.GetById(idUsuario);
+
+            if (user == null)
+                return null;
+
+            return user;
+
+        }
     }
 }

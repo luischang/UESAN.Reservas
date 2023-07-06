@@ -34,6 +34,22 @@ namespace UESAN.Reservas.Core.Services
             }
             return quejasDTO;
         }
+        public async Task<IEnumerable<QuejasDTO>> QuejasPorUsuario(int idUsuario)
+        {
+            var quejas = await _quejasRepository.QuejasPorUsuario(idUsuario);
+            var quejasDTO = new List<QuejasDTO>();
+
+            foreach (var queja in quejas)
+            {
+                var quejaDTO = new QuejasDTO();
+                quejaDTO.IdQuejas = queja.IdQuejas;
+                quejaDTO.Descripcion = queja.Descripcion;
+                quejaDTO.IdUsuario = queja.IdUsuario;
+                quejaDTO.Fecha = queja.Fecha;
+                quejasDTO.Add(quejaDTO);
+            }
+            return quejasDTO;
+        }
 
         public async Task<bool> Insert(InsertQuejasDTO insertQuejasDTO)
         {

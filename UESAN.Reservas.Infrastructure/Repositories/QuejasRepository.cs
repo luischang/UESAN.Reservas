@@ -19,7 +19,17 @@ namespace UESAN.Reservas.Infrastructure.Repositories
         {
             return await _dbContext.Quejas.ToListAsync();
         }
-
+        public async Task<IEnumerable<Quejas>> QuejasPorUsuario(int idUsuario)
+        {
+            var quejas = await _dbContext
+               .Quejas
+               .Where(x => x.IdUsuario == idUsuario).ToListAsync();
+            if (quejas == null)
+            {
+                return null;
+            }
+            return quejas;
+        }
         public async Task<Quejas> GetID(int id)
         {
             return await _dbContext

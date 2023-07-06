@@ -32,6 +32,16 @@ namespace UESAN.Reservas.API.Controllers
             return Ok(calificacion);
         }
 
+        [HttpGet("CalificacionUsuario")]
+        public async Task<IActionResult> CalificacionPorUsuario(int idUsuario)
+        {
+            
+            var calificacion = await _calificacionService.GetAll();
+
+
+            return Ok(calificacion);
+        }
+
         [HttpPost]
         public async Task<IActionResult> Insert(CalificacionInsertDTO calificacion)
         {

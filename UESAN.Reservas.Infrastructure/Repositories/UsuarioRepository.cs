@@ -54,5 +54,11 @@ namespace UESAN.Reservas.Infrastructure.Repositories
 
             return lastUserId;
         }
+        public async Task<IEnumerable<Usuario>> GetById(int idUsuario)
+        {
+            return await _dbContext.Usuario
+      .Where(x => x.IdUsuario == idUsuario).ToListAsync();
+
+        }
     }
 }

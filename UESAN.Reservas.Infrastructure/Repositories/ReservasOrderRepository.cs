@@ -34,6 +34,17 @@ namespace UESAN.Reservas.Infrastructure.Repositories
                 .FirstOrDefaultAsync(x => x.IdReserva == id && x.IdReserva != null);
         }
 
+        public async Task<IEnumerable<ReservasOrder>> ReservasPorUsuario(int idUsuario)
+        {
+            var reservasOrder = await _dbContext
+               .ReservasOrder
+               .Where(x => x.IdUsuario == idUsuario).ToListAsync();
+            if (reservasOrder == null)
+            {
+                return null;
+            }
+            return reservasOrder;
+        }
 
         public async Task<int> Insert(ReservasOrder reservasOrder)
         {
