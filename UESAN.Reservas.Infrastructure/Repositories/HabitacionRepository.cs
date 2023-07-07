@@ -17,7 +17,7 @@ namespace UESAN.Reservas.Infrastructure.Repositories
 
         public async Task<IEnumerable<Habitacion>> GetHabitaciones()
         {
-            var habitaciones = await _context.Habitacion.Where(x => x.Estado == true).Include(z => z.IdTipoHabiNavigation).ToListAsync();
+            var habitaciones = await _context.Habitacion.Include(z => z.IdTipoHabiNavigation).ToListAsync();
             return habitaciones;
         }
 
@@ -49,15 +49,21 @@ namespace UESAN.Reservas.Infrastructure.Repositories
             return countRows > 0;
         }
 
-        public async Task<bool> Delete(int id)
-        {
-            var habitacion = await _context.Habitacion.FindAsync(id);
-            if (habitacion == null)
-                return false;
-            habitacion.Estado = false;
-            var countRows = await _context.SaveChangesAsync();
-            return countRows >= 0;
+        //public async Task<bool> Delete(int id)
+        //{
+        //    var habitacion = await _context.Habitacion.FindAsync(id);
+        //    if (habitacion == null)
+        //        return false;
+        //    habitacion.Estado = false;
+        //    var countRows = await _context.SaveChangesAsync();
+        //    return countRows >= 0;
 
+        //}
+        public async Task<bool> Delete(Habitacion habitacion)
+        {
+            _context.Habitacion.Update(habitacion);
+            int rows = await _context.SaveChangesAsync();
+            return rows > 0;
         }
 
     }

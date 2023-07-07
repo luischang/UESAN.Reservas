@@ -178,14 +178,15 @@ namespace UESAN.Reservas.Core.Services
     public async Task<bool> Delete(int id)
     {
 
-        var idHabitacion = await _habitacionRepository.GetHabitacionById(id);
-        if (idHabitacion != null)
-        {
-            return await _habitacionRepository.Delete(idHabitacion.IdHabitacion);
-        }
-        return false;
+        var Habitacion = await _habitacionRepository.GetHabitacionById(id);
+            if (Habitacion == null)
+                return false;
+            Habitacion.Estado = false;
 
-    }
+            var result = await _habitacionRepository.Delete(Habitacion);
+            return result;
+
+        }
 
 
 }
