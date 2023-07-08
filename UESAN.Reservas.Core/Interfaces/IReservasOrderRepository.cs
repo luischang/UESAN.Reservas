@@ -11,5 +11,7 @@ namespace UESAN.Reservas.Core.Interfaces
         Task<int> Insert(ReservasOrder reservasOrder);
         Task<bool> Update(ReservasOrder reservasOrder);
         Task<bool> EstadoC(int id);
-    }
+        Task<IEnumerable<ReservasOrder>> GetReservasPagadas();
+
+	}
 }

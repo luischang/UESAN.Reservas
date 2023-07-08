@@ -37,7 +37,7 @@ namespace UESAN.Reservas.API.Controllers
             var result = await _detalleServiciosService.Insert(detalleServicios);
             if (!result)
                 return BadRequest();
-            return NoContent();
+            return Ok(result);
         }
 
         [HttpPut("{id}")]

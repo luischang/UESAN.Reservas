@@ -12,20 +12,14 @@ namespace UESAN.Reservas.Core.Services
     public class PagoService : IPagoService
     {
         private readonly IPagoRepository _pagoRepository;
-        private readonly IDetalleServiciosRepository _repo;
-        private readonly IDetalleReservasRepository _reservasRepository;
-        private readonly IOfertasRepository _oferta;
+        
         private readonly IReservasOrderRepository _reservas;
-        private readonly IDetalleSalaEventosRepository _salaEventos;
+        
 
-        public PagoService(IPagoRepository pagoRepository, IDetalleServiciosRepository detalleServiciosRepository, IDetalleReservasRepository detalleReservasRepository, IOfertasRepository oferta, IReservasOrderRepository reservasOrderRepository, IDetalleSalaEventosRepository detalleSalaEventosRepository)
+        public PagoService(IPagoRepository pagoRepository, IReservasOrderRepository reservasOrderRepository)
         {
             _pagoRepository = pagoRepository;
-            _repo = detalleServiciosRepository;
-            _reservasRepository = detalleReservasRepository;
-            _oferta = oferta;
             _reservas = reservasOrderRepository;
-            _salaEventos = detalleSalaEventosRepository;
 
         }
 
@@ -69,90 +63,42 @@ namespace UESAN.Reservas.Core.Services
         }
 
         public async Task<string> Insert(PagoInsertDTO pagoInsertDTO)
-        {
-            var acum1 = 0.0;
-            var acum2 = 0.0;
-            var acum3 = 0.0;
-            var descuento = 0.0;
-            //Primero traemos todos lo detalles servicios que estan registrados con la reserva creada
-            var detallesS = await _repo.GetById(pagoInsertDTO.IdReserva);
-            //traemos lo detalles reservas con el idReserva
-            var detallesR = await _reservasRepository.GetId(pagoInsertDTO.IdReserva);
-
-            var detallesSal = await _salaEventos.GetId(pagoInsertDTO.IdReserva);
-
-            var mensaje = "";
-
-            //Traemos la oferta la que esta expuesta la reserva
-            var reser = await _reservas.GetById(pagoInsertDTO.IdReserva);
-
-            var oferta = await _oferta.GetByIdOferta(reser.IdOfertas);
-            //asignamos decuento
+        {	
             
-            if (oferta != null)
+            
+            var reser = await _reservas.GetById(pagoInsertDTO.IdReserva);
+            var estado = true;
+            //valido si la reserva  esta en su unico y primer pago
+            var reservas = await _reservas.GetReservasPagadas();
+            foreach (var item in reservas)
             {
-                descuento = (double)oferta.Descuento;
-                mensaje = mensaje + "Se obtuvo la oferta";
-            }
-
-            if (detallesS.Count() > 0)
-            {
-                mensaje = mensaje + "Se encontro el servicio";
-            }
-
-            if (detallesR.Count() > 0)
-            {
-                mensaje = mensaje + "Se encontro la habitacion";
-            }
-
-            if (detallesSal.Count() > 0)
-            {
-                mensaje = mensaje + "Se encontro la sala";
-            }
-
-            foreach (var det in detallesS)//aqui traemos los detalles y extraemos sus precios
-            {
-                if (det.SubTotal != null)
-                {
-                    acum1 = acum1 + (int)det.SubTotal;
+                if (item.IdReserva == reser.IdReserva) {
+                    estado = false;
                 }
             }
-            foreach (var deta in detallesR)
+            if(estado)
             {
-                if (deta.Subtotal != null)
-                {
-                    acum2 = acum2 + (int)deta.Subtotal;
-                }
-            }
-            foreach (var detaSala in detallesSal)
-            {
-                if (detaSala.SubTotal != null)
-                {
-                    acum3 = acum3 + (int)detaSala.SubTotal;
-                }
-            }
+				var pago = new Pago()
+				{
+					IdReserva = pagoInsertDTO.IdReserva,
+					Estado = 1,
+					MetodoPago = 1,
+					MontoTotal = pagoInsertDTO.MontoTotal,
+				};
+				var result = await _pagoRepository.Insert(pago);
 
-
-            var pagoTotal = (acum1 + acum2 + acum3) - descuento;
-            var pago = new Pago()
-            {
-                IdReserva = pagoInsertDTO.IdReserva,
-                Estado = pagoInsertDTO.Estado,
-                MetodoPago = 1,
-                MontoTotal = (decimal)pagoTotal,
-            };
-            var result = await _pagoRepository.Insert(pago);
-
-            if (result ){
-                var cambio = await _reservas.EstadoC(reser.IdReserva);
-                if (cambio)
-                {
-                    mensaje = mensaje + "Se hizo el cambio en reservas";  
-                }
-                mensaje = mensaje + "Se creo el pago correctamente";
-                return mensaje;
-            }
-            return mensaje;
+				if (result)
+				{
+					var cambio = await _reservas.EstadoC(reser.IdReserva);
+					if (cambio)
+                    {
+						return "#el cambio en reserva y el pago se hicieron bien";
+					}
+                    return "Se creo el pago pero no se cambio el estado de la reserva";
+				}
+                return "El pago no se creo";
+			}
+            return " La reserva ya fue usada para un pago";
         }
 
 

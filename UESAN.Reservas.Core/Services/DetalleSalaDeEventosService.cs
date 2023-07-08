@@ -12,13 +12,14 @@ namespace UESAN.Reservas.Core.Services
     public class DetalleSalaDeEventosService : IDetalleSalaDeEventosService
     {
         private readonly IDetalleSalaEventosRepository _detalleSalaEventosRepository;
-
+        private readonly IReservasOrderRepository _reservasOrderRepository;
         private readonly ISalaDeEventosRepository _eventosRepository;
 
-        public DetalleSalaDeEventosService(IDetalleSalaEventosRepository detalleSalaEventosRepository, ISalaDeEventosRepository eventosRepository)
+        public DetalleSalaDeEventosService(IDetalleSalaEventosRepository detalleSalaEventosRepository, ISalaDeEventosRepository eventosRepository, IReservasOrderRepository reservasOrderRepository)
         {
             _detalleSalaEventosRepository = detalleSalaEventosRepository;
             _eventosRepository = eventosRepository;
+            _reservasOrderRepository = reservasOrderRepository; 
         }
 
         public async Task<IEnumerable<DetalleSalaDeEventosDTO>> GetAll()
@@ -59,18 +60,26 @@ namespace UESAN.Reservas.Core.Services
         public async Task<bool> Insert(InsertDetalleSalaDeEventosDTO InsertDetalleSalaDeEventosDTO)
         {
             var precio = 0;
-            var SalaEvento = await _eventosRepository.GetId((int)(InsertDetalleSalaDeEventosDTO.IdSalaEvento));
+            var idSala = InsertDetalleSalaDeEventosDTO.IdSalaEvento;
+            var idreserva = InsertDetalleSalaDeEventosDTO.IdReserva;
+            var SalaEvento = await _eventosRepository.GetId(idSala);
+            var reserva = await _reservasOrderRepository.GetById(idreserva);
             precio = (int)SalaEvento.Precio;
-            var detalleSalaEvento = new DetalleSalaEventos
-            {
-                IdReserva = InsertDetalleSalaDeEventosDTO.IdReserva,
-                IdSalaEvento = InsertDetalleSalaDeEventosDTO.IdSalaEvento,
-                FechaInicio = InsertDetalleSalaDeEventosDTO.FechaInicio,
-                FechaFin = InsertDetalleSalaDeEventosDTO.FechaFin,
-                SubTotal = precio
 
-            };
-            return await _detalleSalaEventosRepository.Insert(detalleSalaEvento);
+            if ( SalaEvento != null && reserva != null )
+            {
+                var detalleSalaEvento = new DetalleSalaEventos
+				{
+					IdReserva = InsertDetalleSalaDeEventosDTO.IdReserva,
+					IdSalaEvento = InsertDetalleSalaDeEventosDTO.IdSalaEvento,
+					FechaInicio = reserva.FechaIni,
+					FechaFin = reserva.FechaFin,
+					SubTotal = precio
+
+				};
+				return await _detalleSalaEventosRepository.Insert(detalleSalaEvento);
+			}
+            return false;
         }
 
         public async Task<bool> Update(DetalleSalaDeEventosDTO detalleSalaDeEventosDTO)

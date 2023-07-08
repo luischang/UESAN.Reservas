@@ -77,18 +77,31 @@ namespace UESAN.Reservas.Infrastructure.Repositories
             int rows = await _dbContext.SaveChangesAsync();
             return rows > 0;
         }
-
+        
         public async Task<bool> EstadoC(int id)
         {
-            var findReservasOrder = await _dbContext
+            var reserva = await _dbContext
                                 .ReservasOrder
                                 .Where(x => x.IdReserva == id)
                                 .FirstOrDefaultAsync();
-            if (findReservasOrder == null)
-                return false;
+            if (reserva != null)
+            {
+				reserva.IdEstadoRes = 2;
+                _dbContext.ReservasOrder.Update(reserva);
+				int rows = await _dbContext.SaveChangesAsync();
+				return rows > 0;
+			}
+            return false;
 
-            findReservasOrder.IdEstadoRes = 2;
-            return findReservasOrder.IdEstadoRes == 2;
+            
         }
-    }
+
+		public async Task<IEnumerable<ReservasOrder>> GetReservasPagadas()
+		{
+			return await _dbContext
+						 .ReservasOrder
+						 .Where(x=> x.IdEstadoRes == 2 )
+						 .ToListAsync();
+		}
+	}
 }
